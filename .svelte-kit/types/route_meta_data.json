@@ -1,0 +1,43 @@
+{
+	"/": [
+		"src/routes/+page.ts"
+	],
+	"/api/contact": [
+		"src/routes/api/contact/+server.ts"
+	],
+	"/api/health": [
+		"src/routes/api/health/+server.ts"
+	],
+	"/api/trial": [
+		"src/routes/api/trial/+server.ts"
+	],
+	"/coaches": [
+		"src/routes/coaches/+page.ts"
+	],
+	"/contact": [
+		"src/routes/contact/+page.ts",
+		"src/routes/contact/+page.server.ts"
+	],
+	"/gallery": [
+		"src/routes/gallery/+page.ts"
+	],
+	"/kids": [
+		"src/routes/kids/+page.ts"
+	],
+	"/pricing": [
+		"src/routes/pricing/+page.ts"
+	],
+	"/robots.txt": [
+		"src/routes/robots.txt/+server.ts"
+	],
+	"/sitemap.xml": [
+		"src/routes/sitemap.xml/+server.ts"
+	],
+	"/timetable": [
+		"src/routes/timetable/+page.ts"
+	],
+	"/trial": [
+		"src/routes/trial/+page.ts",
+		"src/routes/trial/+page.server.ts"
+	]
+}

@@ -1,6 +1,31 @@
-# Long Eaton BJJ Site (Static Svelte)
+# Long Eaton BJJ Website (SvelteKit)
 
-Read-only Brazilian Jiu-Jitsu gym website built with Svelte + Vite.
+Multi-page SvelteKit website for Long Eaton BJJ, built with Tailwind CSS and ready for Vercel deployment.
+
+## Tech stack
+
+- SvelteKit
+- Tailwind CSS (v4)
+- Adapter: `@sveltejs/adapter-vercel`
+
+## Routes
+
+- `/` Home
+- `/timetable` Timetable with filters + localStorage persistence
+- `/pricing` Membership options + FAQ accordion
+- `/coaches` Coaches grid + modal profile
+- `/kids` Parent-focused kids page
+- `/gallery` Responsive gallery + lightbox
+- `/contact` Contact page + validated form
+- `/trial` Trial booking flow + timetable class dropdown
+
+## API endpoints
+
+- `GET /api/health`
+- `POST /api/contact`
+- `POST /api/trial`
+- `GET /robots.txt`
+- `GET /sitemap.xml`
 
 ## Local development
 
@@ -9,28 +34,38 @@ npm install
 npm run dev
 ```
 
-## Production build
+## Quality checks
 
 ```bash
+npm run check
 npm run build
 ```
 
-The static output is generated in `dist/`.
+## Environment variables
 
-## Deploy to Vercel
+Create a `.env` file for local development.
 
-This project is already configured for Vercel via `vercel.json`:
+Required for production SEO:
 
-- `buildCommand`: `npm run build`
-- `outputDirectory`: `dist`
-- `devCommand`: `npm run dev`
+- `PUBLIC_SITE_URL` (example: `https://www.longeatonbjj.com`)
 
-Deploy options:
+Placeholder provider wiring (currently logs submissions, but supports future provider integration):
 
-1. Connect this repository in Vercel and deploy.
-2. Or use CLI:
+- `CONTACT_PROVIDER` (example: `log`, `resend`, `sendgrid`)
+- `CONTACT_PROVIDER_API_KEY`
+- `TRIAL_PROVIDER` (optional override for trial route)
+- `TRIAL_PROVIDER_API_KEY`
 
-```bash
-npm i -g vercel
-vercel
-```
+Optional future provider keys:
+
+- `RESEND_API_KEY`
+- `SENDGRID_API_KEY`
+
+## Vercel deployment
+
+1. Push this repo to GitHub.
+2. Import project in Vercel.
+3. Add environment variables in Vercel project settings.
+4. Deploy.
+
+No custom `vercel.json` is required with `@sveltejs/adapter-vercel`.
