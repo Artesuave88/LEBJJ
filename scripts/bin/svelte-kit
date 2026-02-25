@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ $# -lt 1 ]; then
+  echo "Usage: svelte-kit <dev|build|preview> [args...]"
+  exit 1
+fi
+
+command="$1"
+shift || true
+
+case "$command" in
+  dev)
+    exec ./node_modules/.bin/vite dev "$@"
+    ;;
+  build)
+    exec ./node_modules/.bin/vite build "$@"
+    ;;
+  preview)
+    exec ./node_modules/.bin/vite preview "$@"
+    ;;
+  *)
+    echo "Unsupported command: $command"
+    echo "Supported commands: dev, build, preview"
+    exit 1
+    ;;
+esac

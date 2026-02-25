@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "PATH=./scripts/bin:$PATH svelte-kit dev",
+    "build": "PATH=./scripts/bin:$PATH svelte-kit build",
+    "preview": "PATH=./scripts/bin:$PATH svelte-kit preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
