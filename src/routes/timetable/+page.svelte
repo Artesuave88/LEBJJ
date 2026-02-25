@@ -103,8 +103,7 @@
 
       <div class="mt-4 flex flex-wrap gap-2">
         <Badge variant="red">{filteredClasses.length} classes shown</Badge>
-        <Badge>Mobile list on small screens</Badge>
-        <Badge>Grid on tablet and desktop</Badge>
+
       </div>
     </div>
 

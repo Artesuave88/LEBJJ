@@ -56,7 +56,8 @@
       <h3 class="text-xl font-bold text-zinc-950">Safety and safeguarding</h3>
       <p class="mt-3 text-sm leading-relaxed text-zinc-700">
         Student wellbeing comes first. Classes are supervised, structured, and coached with age-appropriate intensity.
-        We emphasise respectful behaviour, controlled practice, and clear communication with parents.
+        All instructors are DBS checked and first aid trained. We emphasise respectful behaviour, controlled
+        practice, and clear communication with parents.
       </p>
     </Card>
 
