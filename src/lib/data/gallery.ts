@@ -80,6 +80,26 @@ const galleryMetaOverrides: Record<
     caption: 'Family-Friendly Gym Culture',
     alt: 'Two instructors and two junior students posing together in the academy',
   },
+  'LEBJJ-25-JMP-011': {
+    caption: 'Technique Demonstration',
+    alt: 'An instructor demonstrating BJJ technique during class at Long Eaton BJJ',
+  },
+  'LEBJJ-25-JMP-217': {
+    caption: 'Technical Drilling',
+    alt: 'Two students drilling a BJJ technique together during class at Long Eaton BJJ',
+  },
+  'LEBJJ-25-JMP-219': {
+    caption: 'Sparring',
+    alt: 'Two students engaged in a controlled sparring session during class at Long Eaton BJJ',
+  },
+  'LEBJJ-25-JMP-237': {
+    caption: 'Coffee Break ',
+    alt: 'Students taking a break and enjoying a coffee together at Long Eaton BJJ',
+  },
+  'LEBJJ-25-JMP-257': {
+    caption: 'Black belt instruction',
+    alt: 'Black belt instructors',
+  },
 };
 
 function toSlug(value: string): string {
