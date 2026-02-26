@@ -4,6 +4,8 @@ import michaelStevensonPhoto from '$lib/assets/coaches/michael_stevenson.png';
 import markKiddPhoto from '$lib/assets/coaches/mark_kidd.png';
 import benSmedleyPhoto from '$lib/assets/coaches/ben_smedley.png';
 import jamesLewisPhoto from '$lib/assets/coaches/james_lewis.png';
+import emmaPhoto from '$lib/assets/coaches/emma.png';
+import danPhoto from '$lib/assets/coaches/dan.png';
 
 export type instructor = {
   id: string;
@@ -23,9 +25,9 @@ export const instructors: instructor[] = [
     beltRank: '3rd Degree Black Belt',
     role: 'Head Instructor / Owner',
     shortBio:
-      'Head instructor leading fundamentals and long-term student development.',
+      'Head instructor with over 25 years of BJJ experience, leading fundamentals and long-term development.',
     fullBio:
-      'Mikey leads the instruction at Long Eaton BJJ, with a strong focus on technical detail, clear progression, and high standards on and off the mat.',
+      'Mikey has been training BJJ for over 25 years and leads the instruction at Long Eaton BJJ, with a strong focus on technical detail, clear progression and high standards on and off the mat. He and Sian are married, and their two daughters also train.',
     photo: mikeyDeanPhoto
   },
 
@@ -35,9 +37,9 @@ export const instructors: instructor[] = [
     beltRank: '2nd Degree Black Belt',
     role: 'Instructor',
     shortBio:
-      'Supports adult and developing students with structured, practical instruction.',
+      'Supports adult and developing students with structured, practical instruction and active competition experience.',
     fullBio:
-      'Michael brings a technical and supportive approach to instruction, helping students sharpen fundamentals while building confidence in live training.',
+      'Michael brings a technical and supportive approach to instruction, helping students sharpen fundamentals while building confidence in live training. He competes regularly, and his daughter also trains at the academy.',
     photo: michaelStevensonPhoto,
     photoPosition: 'center top'
   },
@@ -48,9 +50,9 @@ export const instructors: instructor[] = [
     beltRank: '2nd Degree Black Belt',
     role: 'Instructor',
     shortBio:
-      'Experienced black belt supporting technical development across classes.',
+      'Experienced black belt coaching BJJ and FrostFit classes, and founder of the kids program.',
     fullBio:
-      'Mark brings years of grappling experience and helps students sharpen core jiu-jitsu fundamentals with clear, practical instruction.',
+      'Mark brings years of grappling experience and can be found coaching FrostFit classes as well as BJJ sessions across the timetable. He also started the kids program and continues to support its development.',
     photo: markKiddPhoto,
     photoPosition: 'center top'
   },
@@ -60,9 +62,9 @@ export const instructors: instructor[] = [
     beltRank: '2nd Degree Black Belt',
     role: 'Instructor',
     shortBio:
-      'Ben focuses on our juniors team, building confidence and technique in young athletes.',
+      'Ben\'s main focus is the juniors team, and he also coaches FrostFit and adult classes.',
     fullBio:
-      'Ben leads our juniors team, helping young athletes develop strong fundamentals, confidence, and a love for the sport in a supportive environment.',
+      'Ben\'s main love is teaching juniors, where he helps young athletes build strong fundamentals, confidence and a love for the sport. He also often teaches FrostFit and adult classes.',
     photo: benSmedleyPhoto,
     photoPosition: 'right top'
   },
@@ -72,9 +74,9 @@ export const instructors: instructor[] = [
     beltRank: '1st Degree Black Belt',
     role: 'Instructor',
     shortBio:
-      'Supports the junior and teens program with practical instruction focused on fundamentals and live application.',
+      'Known as the quiet giant of the gym, supporting juniors and teens with practical instruction.',
     fullBio:
-      'James brings a practical and technical instruction style, helping students develop strong fundamentals and apply them effectively in live training.',
+      'James brings a practical and technical instruction style, helping students develop strong fundamentals and apply them effectively in live training. He and his son both train at the academy, and he is known as the quiet giant of the gym.',
     photo: jamesLewisPhoto,
     photoPosition: 'center top'
   },
@@ -86,8 +88,32 @@ export const instructors: instructor[] = [
     shortBio:
       'Teaches juniors and ladies classes with clear, supportive instruction.',
     fullBio:
-      'Sian teaches juniors and ladies classes, helping students build strong fundamentals, confidence, and safe training habits in every session.',
+      'Sian teaches juniors and ladies classes, helping students build strong fundamentals, confidence and safe training habits in every session. She and Mikey are married, and their two daughters also train.',
     photo: sianDeanPhoto,
+    photoPosition: 'center top'
+  },
+  {
+    id: 'emma',
+    name: 'Emma',
+    beltRank: 'Brown Belt',
+    role: 'Instructor',
+    shortBio:
+      'Highest graded female instructor and founder of the ladies program.',
+    fullBio:
+      'Emma is a brown belt who started our ladies program and is the highest graded female at the academy. She teaches juniors, teens and ladies classes, helping students build confidence, technical fundamentals and safe training habits in every session.',
+    photo: emmaPhoto,
+    photoPosition: 'center top'
+  },
+  {
+    id: 'dan',
+    name: 'Dan',
+    beltRank: 'Black Belt',
+    role: 'Instructor',
+    shortBio:
+      'Black belt instructor who is usually leading the No-Gi classes.',
+    fullBio:
+      'Dan is a black belt and can usually be found running the No-Gi classes, helping students develop timing, pressure and practical grappling skills for live training.',
+    photo: danPhoto,
     photoPosition: 'center top'
   }
 ]
