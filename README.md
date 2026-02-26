@@ -49,7 +49,7 @@ Required for production SEO:
 
 - `PUBLIC_SITE_URL` (example: `https://www.longeatonbjj.com`)
 
-Placeholder provider wiring (currently logs submissions, but supports future provider integration):
+Submission provider wiring (`log` by default, or real delivery via provider):
 
 - `CONTACT_PROVIDER` (example: `log`, `resend`, `sendgrid`)
 - `CONTACT_PROVIDER_API_KEY`
@@ -60,6 +60,10 @@ Optional future provider keys:
 
 - `RESEND_API_KEY`
 - `SENDGRID_API_KEY`
+- `CONTACT_TO_EMAIL` (fallback recipient inbox)
+- `CONTACT_FROM_EMAIL` (fallback sender address)
+- `TRIAL_TO_EMAIL` (trial booking recipient inbox)
+- `TRIAL_FROM_EMAIL` (trial booking sender address)
 
 ## Vercel deployment
 
