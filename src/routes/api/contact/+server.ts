@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit'
 import { env } from '$env/dynamic/private'
+import { sendEmailNotification } from '$lib/server/email-delivery'
 import type { RequestHandler } from './$types'
 
 type ContactPayload = {
@@ -12,22 +13,63 @@ type ContactPayload = {
 export const POST: RequestHandler = async ({ request }) => {
   const payload = (await request.json().catch(() => null)) as ContactPayload | null
 
-  if (!payload || !payload.name || !payload.email || !payload.message) {
+  const name = payload?.name?.trim() || ''
+  const email = payload?.email?.trim() || ''
+  const phone = payload?.phone?.trim() || ''
+  const message = payload?.message?.trim() || ''
+
+  if (!name || !email || !message) {
     return json({ message: 'Name, email, and message are required.' }, { status: 400 })
   }
 
-  const provider = env.CONTACT_PROVIDER || 'log'
-  const providerApiKey = env.CONTACT_PROVIDER_API_KEY || ''
+  const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  if (!emailLooksValid) {
+    return json({ message: 'Please provide a valid email address.' }, { status: 400 })
+  }
 
-  console.log('[contact-submission]', {
+  const provider = env.CONTACT_PROVIDER || env.TRIAL_PROVIDER || 'log'
+  const providerApiKey =
+    env.CONTACT_PROVIDER_API_KEY ||
+    env.TRIAL_PROVIDER_API_KEY ||
+    env.RESEND_API_KEY ||
+    env.SENDGRID_API_KEY ||
+    ''
+  const to = env.CONTACT_TO_EMAIL || env.TRIAL_TO_EMAIL || ''
+  const from = env.CONTACT_FROM_EMAIL || env.TRIAL_FROM_EMAIL || ''
+  const receivedAt = new Date().toISOString()
+
+  const text = [
+    'New contact form submission',
+    '',
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Phone: ${phone || 'Not provided'}`,
+    `Message: ${message}`,
+    `Submitted: ${receivedAt}`
+  ].join('\n')
+
+  const deliveryResult = await sendEmailNotification({
     provider,
-    hasProviderApiKey: Boolean(providerApiKey),
-    name: payload.name,
-    email: payload.email,
-    phone: payload.phone || null,
-    message: payload.message,
-    receivedAt: new Date().toISOString()
+    apiKey: providerApiKey,
+    to,
+    from,
+    subject: `Contact Form - ${name}`,
+    text,
+    replyTo: email,
+    logLabel: '[contact-submission]',
+    logPayload: {
+      hasProviderApiKey: Boolean(providerApiKey),
+      name,
+      email,
+      phone: phone || null,
+      message,
+      receivedAt
+    }
   })
+
+  if (!deliveryResult.ok) {
+    return json({ message: deliveryResult.message || 'Unable to submit the form right now.' }, { status: 500 })
+  }
 
   return json({
     ok: true,
