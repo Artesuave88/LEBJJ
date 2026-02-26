@@ -10,10 +10,20 @@
     type TimetableClass
   } from '$lib/data/timetable'
 
+  const bookingForOptions = [
+    { value: 'adult', label: 'Adult (myself)' },
+    { value: 'parent-child', label: 'Parent / guardian booking for child' },
+    { value: 'teen', label: 'Teen (13-17)' },
+    { value: 'not-sure', label: 'Not sure yet' }
+  ] as const
+
+  type BookingForValue = (typeof bookingForOptions)[number]['value']
+
   type TrialForm = {
     name: string
     email: string
     phone: string
+    bookingFor: BookingForValue | ''
     classId: string
   }
 
@@ -27,6 +37,7 @@
     name: '',
     email: '',
     phone: '',
+    bookingFor: '',
     classId: ''
   }
 
@@ -44,6 +55,7 @@
     if (!form.name.trim()) nextErrors.name = 'Please enter your name.'
     if (!form.email.trim()) nextErrors.email = 'Please enter your email.'
     if (form.email && !validateEmail(form.email)) nextErrors.email = 'Please enter a valid email address.'
+    if (!form.bookingFor) nextErrors.bookingFor = 'Please tell us who the trial is for.'
     if (!form.classId) nextErrors.classId = 'Please choose a class.'
 
     errors = nextErrors
@@ -76,7 +88,7 @@
 
       submitState = 'success'
       statusMessage = payload.message || 'Great, your trial request has been sent.'
-      form = { name: '', email: '', phone: '', classId: '' }
+      form = { name: '', email: '', phone: '', bookingFor: '', classId: '' }
       errors = {}
     } catch (error) {
       submitState = 'error'
@@ -151,20 +163,35 @@
           </label>
 
           <label class="grid gap-2 text-sm font-medium text-zinc-800">
-            Choose class
+            Booking for
             <select
               class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
-              bind:value={form.classId}
-              aria-invalid={Boolean(errors.classId)}
+              bind:value={form.bookingFor}
+              aria-invalid={Boolean(errors.bookingFor)}
             >
-              <option value="">Select a class</option>
-              {#each classOptions as item}
-                <option value={item.id}>{getClassLabelForSelect(item)}</option>
+              <option value="">Select one</option>
+              {#each bookingForOptions as option}
+                <option value={option.value}>{option.label}</option>
               {/each}
             </select>
-            {#if errors.classId}<span class="text-xs text-red-700">{errors.classId}</span>{/if}
+            {#if errors.bookingFor}<span class="text-xs text-red-700">{errors.bookingFor}</span>{/if}
           </label>
         </div>
+
+        <label class="grid gap-2 text-sm font-medium text-zinc-800">
+          Choose class
+          <select
+            class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+            bind:value={form.classId}
+            aria-invalid={Boolean(errors.classId)}
+          >
+            <option value="">Select a class</option>
+            {#each classOptions as item}
+              <option value={item.id}>{getClassLabelForSelect(item)}</option>
+            {/each}
+          </select>
+          {#if errors.classId}<span class="text-xs text-red-700">{errors.classId}</span>{/if}
+        </label>
 
         <div class="flex flex-wrap items-center gap-3">
           <Button type="submit" disabled={submitState === 'submitting'}>

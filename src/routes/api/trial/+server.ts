@@ -8,6 +8,7 @@ type TrialPayload = {
   name?: string
   email?: string
   phone?: string
+  bookingFor?: string
   classId?: string
 }
 
@@ -17,10 +18,11 @@ export const POST: RequestHandler = async ({ request }) => {
   const name = payload?.name?.trim() || ''
   const email = payload?.email?.trim() || ''
   const phone = payload?.phone?.trim() || ''
+  const bookingFor = payload?.bookingFor?.trim() || ''
   const classId = payload?.classId?.trim() || ''
 
-  if (!name || !email || !classId) {
-    return json({ message: 'Name, email, and class selection are required.' }, { status: 400 })
+  if (!name || !email || !bookingFor || !classId) {
+    return json({ message: 'Name, email, booking type, and class selection are required.' }, { status: 400 })
   }
 
   const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -31,6 +33,18 @@ export const POST: RequestHandler = async ({ request }) => {
   const selectedClass = timetableData.find((item) => item.id === classId)
   if (!selectedClass) {
     return json({ message: 'Please choose a valid class from the timetable.' }, { status: 400 })
+  }
+
+  const bookingForLabelMap: Record<string, string> = {
+    adult: 'Adult (myself)',
+    'parent-child': 'Parent / guardian booking for child',
+    teen: 'Teen (13-17)',
+    'not-sure': 'Not sure yet'
+  }
+
+  const bookingForLabel = bookingForLabelMap[bookingFor]
+  if (!bookingForLabel) {
+    return json({ message: 'Please choose who the trial is for.' }, { status: 400 })
   }
 
   const provider = env.TRIAL_PROVIDER || env.CONTACT_PROVIDER || 'log'
@@ -51,6 +65,7 @@ export const POST: RequestHandler = async ({ request }) => {
     `Name: ${name}`,
     `Email: ${email}`,
     `Phone: ${phone || 'Not provided'}`,
+    `Booking for: ${bookingForLabel}`,
     `Class: ${classLabel}`,
     `Class ID: ${classId}`,
     `Submitted: ${receivedAt}`
@@ -70,6 +85,8 @@ export const POST: RequestHandler = async ({ request }) => {
       name,
       email,
       phone: phone || null,
+      bookingFor,
+      bookingForLabel,
       classId,
       classLabel,
       receivedAt

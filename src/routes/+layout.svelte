@@ -5,6 +5,7 @@
   import Button from '$lib/components/ui/Button.svelte'
   import Container from '$lib/components/ui/Container.svelte'
   import logo from '$lib/assets/lebjj-logo.png'
+  import { siFacebook, siInstagram, siWhatsapp } from 'simple-icons'
   import {
     FACEBOOK_URL,
     INSTAGRAM_URL,
@@ -32,6 +33,12 @@
   $: currentPath = $page.url.pathname
   $: showMobileStickyBar = ['/', '/timetable', '/pricing'].includes(currentPath)
   $: year = new Date().getFullYear()
+
+  const socialLinks = [
+    { href: WHATSAPP_URL, label: 'WhatsApp', icon: siWhatsapp },
+    { href: INSTAGRAM_URL, label: 'Instagram', icon: siInstagram },
+    { href: FACEBOOK_URL, label: 'Facebook', icon: siFacebook }
+  ] as const
 
   let mobileMenuOpen = false
 
@@ -127,11 +134,24 @@
   <footer class="border-t border-zinc-200 bg-white py-10">
     <Container class="flex flex-col items-start justify-between gap-4 text-sm text-zinc-600 md:flex-row md:items-center">
       <p>© {year} {SITE_NAME}. All rights reserved.</p>
-      <div class="flex items-center gap-4">
-        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" class="hover:text-red-700">WhatsApp</a>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" class="hover:text-red-700">Instagram</a>
-        <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" class="hover:text-red-700">Facebook</a>
-        <a href={`tel:${PHONE_TEL}`} class="hover:text-red-700">{PHONE_LABEL}</a>
+      <div class="flex flex-wrap items-center gap-2">
+        {#each socialLinks as social}
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={social.label}
+            class="group inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 transition hover:border-zinc-300 hover:bg-white"
+          >
+            <span class="grid h-6 w-6 place-items-center rounded-full bg-white ring-1 ring-zinc-200">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" aria-hidden="true">
+                <path d={social.icon.path} fill={`#${social.icon.hex}`} />
+              </svg>
+            </span>
+            <span class="text-sm font-semibold text-zinc-700 group-hover:text-red-700">{social.label}</span>
+          </a>
+        {/each}
+        <a href={`tel:${PHONE_TEL}`} class="ml-1 hover:text-red-700">{PHONE_LABEL}</a>
       </div>
     </Container>
   </footer>
