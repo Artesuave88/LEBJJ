@@ -3,8 +3,10 @@ import { SITE_URL } from '$lib/config/site'
 
 const staticPages = ['/', '/timetable', '/pricing', '/coaches', '/kids', '/gallery', '/contact', '/trial']
 
+export const prerender = true
+
 export const GET: RequestHandler = async () => {
-  const lastmod = new Date().toISOString()
+  const lastmod = new Date().toISOString().split('T')[0]
 
   const urlEntries = staticPages
     .map((path) => {
@@ -17,6 +19,7 @@ export const GET: RequestHandler = async () => {
 
   return new Response(xml, {
     headers: {
+      'cache-control': 'public, max-age=0, s-maxage=3600',
       'content-type': 'application/xml; charset=utf-8'
     }
   })

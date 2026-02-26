@@ -7,7 +7,7 @@
   const benefits = [
     'Confidence and resilience through progressive skill development',
     'Improved focus, listening, and respectful behaviour',
-    'Safe physical activity with qualified coaching and supervision',
+    'Safe physical activity with qualified instruction and supervision',
     'Positive social environment with clear class structure'
   ]
 
@@ -38,7 +38,8 @@
       <Card class="border-zinc-200">
         <h3 class="text-xl font-bold text-zinc-950">What to expect in the first class</h3>
         <p class="mt-3 text-sm text-zinc-700">
-          We welcome your child, introduce key rules, and keep the first class simple and supportive. Coaches explain each drill clearly and pair students carefully by age and experience.
+          We welcome your child, introduce key rules, and keep the first class simple and supportive.
+          Instructors explain each drill clearly and pair students carefully by age and experience.
         </p>
         <h4 class="mt-5 text-base font-semibold text-zinc-950">What to bring</h4>
         <ul class="mt-2 space-y-2 text-sm text-zinc-700">
@@ -55,9 +56,9 @@
     <Card class="border-zinc-200">
       <h3 class="text-xl font-bold text-zinc-950">Safety and safeguarding</h3>
       <p class="mt-3 text-sm leading-relaxed text-zinc-700">
-        Student wellbeing comes first. Classes are supervised, structured, and coached with age-appropriate intensity.
-        All instructors are DBS checked and first aid trained. We emphasise respectful behaviour, controlled
-        practice, and clear communication with parents.
+        Student wellbeing comes first. Classes are supervised, structured, and taught with age-appropriate
+        intensity. All instructors are DBS checked and first aid trained. We emphasise respectful behaviour,
+        controlled practice, and clear communication with parents.
       </p>
     </Card>
 

@@ -10,7 +10,7 @@ export const testimonials: Testimonial[] = [
     id: 'tom',
     name: 'Tom R.',
     type: 'Student',
-    quote: 'Started as a total beginner. The coaching is clear, structured, and genuinely welcoming.'
+    quote: 'Started as a total beginner. The instruction is clear, structured, and genuinely welcoming.'
   },
   {
     id: 'ashley',
@@ -28,7 +28,7 @@ export const testimonials: Testimonial[] = [
     id: 'nicola',
     name: 'Nicola B.',
     type: 'Parent',
-    quote: 'Excellent coaching standards and a safe environment. Communication with parents is very good.'
+    quote: 'Excellent instruction standards and a safe environment. Communication with parents is very good.'
   },
   {
     id: 'ryan',

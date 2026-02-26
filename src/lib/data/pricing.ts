@@ -15,7 +15,7 @@ export const memberships: Membership[] = [
     description: 'A low-commitment start for new students.',
     features: [
       'Intro-friendly class access',
-      'Coach guidance before first session',
+      'Instructor guidance before first session',
       'Perfect for complete beginners'
     ],
     ctaLabel: 'Start Trial'

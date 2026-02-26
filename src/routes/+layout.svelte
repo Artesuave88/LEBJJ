@@ -12,25 +12,18 @@
     NAV_LINKS,
     PHONE_LABEL,
     PHONE_TEL,
-    SITE_DESCRIPTION,
     SITE_NAME,
     WHATSAPP_URL
   } from '$lib/config/site'
-  import { createSeo, type SeoMeta } from '$lib/utils/seo'
+  import { createRouteSeo, type SeoMeta } from '$lib/utils/seo'
   import { page } from '$app/stores'
 
   export let data: {
     seo?: SeoMeta
-  }
+  } = {}
 
-  const fallbackSeo = createSeo({
-    title: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    path: '/'
-  })
-
-  $: seo = data.seo ?? fallbackSeo
   $: currentPath = $page.url.pathname
+  $: seo = data.seo ?? createRouteSeo(currentPath)
   $: showMobileStickyBar = ['/', '/timetable', '/pricing'].includes(currentPath)
   $: year = new Date().getFullYear()
 
@@ -128,7 +121,32 @@
   </header>
 
   <main>
-    <slot />
+    <svelte:boundary>
+      <slot />
+      {#snippet failed(error, reset)}
+        <Container class="py-12">
+          <section class="rounded-3xl border border-red-100 bg-red-50/50 p-6 text-zinc-800 sm:p-8">
+            <h2 class="text-2xl font-bold text-zinc-950">We hit a page error</h2>
+            <p class="mt-2 text-sm text-zinc-700">
+              {error instanceof Error
+                ? error.message
+                : 'An unexpected issue occurred while rendering this page.'}
+            </p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              <Button href="/">Back Home</Button>
+              <Button href="/trial" variant="secondary">Book Trial</Button>
+              <button
+                type="button"
+                class="inline-flex items-center justify-center rounded-full border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-100"
+                on:click={() => reset()}
+              >
+                Try Again
+              </button>
+            </div>
+          </section>
+        </Container>
+      {/snippet}
+    </svelte:boundary>
   </main>
 
   <footer class="border-t border-zinc-200 bg-white py-10">

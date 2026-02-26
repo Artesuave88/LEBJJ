@@ -14,19 +14,19 @@ export type instructor = {
   fullBio: string;
   photo: string;
   photoPosition?: string;
-};
+}
 
-export const coaches: instructor[] = [
+export const instructors: instructor[] = [
   {
     id: 'mikey-dean',
     name: 'Mikey Dean',
     beltRank: '3rd Degree Black Belt',
-    role: 'Head instructor / Owner',
+    role: 'Head Instructor / Owner',
     shortBio:
       'Head instructor leading fundamentals and long-term student development.',
     fullBio:
-      'Mikey leads the instructoring direction at Long Eaton BJJ, with a strong focus on technical detail, clear progression, and high standards on and off the mat.',
-    photo: mikeyDeanPhoto,
+      'Mikey leads the instruction at Long Eaton BJJ, with a strong focus on technical detail, clear progression, and high standards on and off the mat.',
+    photo: mikeyDeanPhoto
   },
 
   {
@@ -35,11 +35,11 @@ export const coaches: instructor[] = [
     beltRank: '2nd Degree Black Belt',
     role: 'Instructor',
     shortBio:
-      'Supports adult and developing students with structured, practical instructoring.',
+      'Supports adult and developing students with structured, practical instruction.',
     fullBio:
-      'Michael brings a technical and supportive approach to instructoring, helping students sharpen fundamentals while building confidence in live training.',
+      'Michael brings a technical and supportive approach to instruction, helping students sharpen fundamentals while building confidence in live training.',
     photo: michaelStevensonPhoto,
-    photoPosition: 'center top',
+    photoPosition: 'center top'
   },
 
   {
@@ -50,9 +50,9 @@ export const coaches: instructor[] = [
     shortBio:
       'Experienced black belt supporting technical development across classes.',
     fullBio:
-      'Mark brings years of grappling experience and helps students sharpen core jiu-jitsu fundamentals with clear, practical instructoring.',
+      'Mark brings years of grappling experience and helps students sharpen core jiu-jitsu fundamentals with clear, practical instruction.',
     photo: markKiddPhoto,
-    photoPosition: 'center top',
+    photoPosition: 'center top'
   },
   {
     id: 'ben-smedley',
@@ -64,7 +64,7 @@ export const coaches: instructor[] = [
     fullBio:
       'Ben leads our juniors team, helping young athletes develop strong fundamentals, confidence, and a love for the sport in a supportive environment.',
     photo: benSmedleyPhoto,
-    photoPosition: 'right top',
+    photoPosition: 'right top'
   },
   {
     id: 'james-lewis',
@@ -72,11 +72,11 @@ export const coaches: instructor[] = [
     beltRank: '1st Degree Black Belt',
     role: 'Instructor',
     shortBio:
-      'Supports the junior and teens program with practical instructoring focused on fundamentals and live application.',
+      'Supports the junior and teens program with practical instruction focused on fundamentals and live application.',
     fullBio:
-      'James brings a practical and technical instructoring style, helping students develop strong fundamentals and apply them effectively in live training.',
+      'James brings a practical and technical instruction style, helping students develop strong fundamentals and apply them effectively in live training.',
     photo: jamesLewisPhoto,
-    photoPosition: 'center top',
+    photoPosition: 'center top'
   },
   {
     id: 'sian-dean',
@@ -88,6 +88,6 @@ export const coaches: instructor[] = [
     fullBio:
       'Sian teaches juniors and ladies classes, helping students build strong fundamentals, confidence, and safe training habits in every session.',
     photo: sianDeanPhoto,
-    photoPosition: 'center top',
-  },
-];
+    photoPosition: 'center top'
+  }
+]

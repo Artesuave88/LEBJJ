@@ -65,20 +65,20 @@ const galleryMetaOverrides: Record<
   Partial<Pick<GalleryItem, 'caption' | 'alt' | 'objectPosition'>>
 > = {
   'LEBJJ-25-JMP-012': {
-    caption: 'Juniors Class Coaching',
-    alt: 'Coach guiding two junior students through a ground position drill',
+    caption: 'Juniors Class Instruction',
+    alt: 'Instructor guiding two junior students through a ground position drill',
   },
   'LEBJJ-25-JMP-013': {
     caption: 'Kids Sparring Session',
-    alt: 'Coach supervising two junior students during controlled sparring',
+    alt: 'Instructor supervising two junior students during controlled sparring',
   },
   'LE-BJJ-24-JM-030': {
-    caption: 'Coach Photo ',
-    alt: 'Long Eaton BJJ coaches posing for a group photo in the gym',
+    caption: 'Instructor Photo',
+    alt: 'Long Eaton BJJ instructors posing for a group photo in the gym',
   },
   'LEBJJ-25-JMP-171': {
     caption: 'Family-Friendly Gym Culture',
-    alt: 'Two coaches and two junior students posing together in the academy',
+    alt: 'Two instructors and two junior students posing together in the academy',
   },
 };
 

@@ -11,7 +11,7 @@ export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/timetable', label: 'Timetable' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/coaches', label: 'Coaches' },
+  { href: '/coaches', label: 'Instructors' },
   { href: '/kids', label: 'Kids' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/contact', label: 'Contact' }

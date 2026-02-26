@@ -15,7 +15,7 @@
       copy: 'Friendly training partners, clear standards, and a room where beginners can grow without ego.'
     },
     {
-      title: 'Structured coaching each week',
+      title: 'Structured instruction each week',
       copy: 'Every class has a focus, so you always know what you are building and why it matters.'
     },
     {
@@ -24,7 +24,7 @@
     },
     {
       title: 'Competition team support',
-      copy: 'If you want to compete, we provide coaching, preparation sessions, and practical match strategy.'
+      copy: 'If you want to compete, we provide instructor-led preparation sessions and practical match strategy.'
     }
   ]
 </script>
@@ -47,7 +47,7 @@
         Train Brazilian Jiu-Jitsu with Purpose
       </h1>
       <p class="mt-4 max-w-2xl text-base text-zinc-200 sm:text-lg">
-        Build confidence, fitness, and real grappling skill with coaching that is beginner-friendly and
+        Build confidence, fitness, and real grappling skill with instructor-led guidance that is beginner-friendly and
         progression-focused.
       </p>
 
@@ -70,7 +70,7 @@
     <SectionHeading
       eyebrow="Why train here"
       title="A proven path from first class to confident grappler"
-      description="Long Eaton BJJ combines technical coaching with a welcoming team culture. Whether your goal is fitness, self-defence, or competition, the structure is designed to help you improve every week."
+      description="Long Eaton BJJ combines technical instruction with a welcoming team culture. Whether your goal is fitness, self-defence, or competition, the structure is designed to help you improve every week."
     />
 
     <div class="grid gap-4 sm:grid-cols-2">
