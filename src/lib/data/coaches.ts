@@ -1,9 +1,11 @@
-import coachPlaceholder from '$lib/assets/coach-placeholder.svg';
 import mikeyDeanPhoto from '$lib/assets/coaches/mikey_dean.png';
 import sianDeanPhoto from '$lib/assets/coaches/sian_dean.png';
 import michaelStevensonPhoto from '$lib/assets/coaches/michael_stevenson.png';
+import markKiddPhoto from '$lib/assets/coaches/mark_kidd.png';
+import benSmedleyPhoto from '$lib/assets/coaches/ben_smedley.png';
+import jamesLewisPhoto from '$lib/assets/coaches/james_lewis.png';
 
-export type Coach = {
+export type instructor = {
   id: string;
   name: string;
   beltRank: string;
@@ -14,16 +16,16 @@ export type Coach = {
   photoPosition?: string;
 };
 
-export const coaches: Coach[] = [
+export const coaches: instructor[] = [
   {
     id: 'mikey-dean',
     name: 'Mikey Dean',
     beltRank: '3rd Degree Black Belt',
-    role: 'Head Coach',
+    role: 'Head instructor / Owner',
     shortBio:
-      'Head coach leading fundamentals and long-term student development.',
+      'Head instructor leading fundamentals and long-term student development.',
     fullBio:
-      'Mikey leads the coaching direction at Long Eaton BJJ, with a strong focus on technical detail, clear progression, and high standards on and off the mat.',
+      'Mikey leads the instructoring direction at Long Eaton BJJ, with a strong focus on technical detail, clear progression, and high standards on and off the mat.',
     photo: mikeyDeanPhoto,
   },
 
@@ -31,19 +33,56 @@ export const coaches: Coach[] = [
     id: 'michael-stevenson',
     name: 'Michael Stevenson',
     beltRank: '2nd Degree Black Belt',
-    role: 'Coach',
+    role: 'Instructor',
     shortBio:
-      'Supports adult and developing students with structured, practical coaching.',
+      'Supports adult and developing students with structured, practical instructoring.',
     fullBio:
-      'Michael brings a technical and supportive approach to coaching, helping students sharpen fundamentals while building confidence in live training.',
+      'Michael brings a technical and supportive approach to instructoring, helping students sharpen fundamentals while building confidence in live training.',
     photo: michaelStevensonPhoto,
+    photoPosition: 'center top',
+  },
+
+  {
+    id: 'mark-kidd',
+    name: 'Mark Kidd',
+    beltRank: '2nd Degree Black Belt',
+    role: 'Instructor',
+    shortBio:
+      'Experienced black belt supporting technical development across classes.',
+    fullBio:
+      'Mark brings years of grappling experience and helps students sharpen core jiu-jitsu fundamentals with clear, practical instructoring.',
+    photo: markKiddPhoto,
+    photoPosition: 'center top',
+  },
+  {
+    id: 'ben-smedley',
+    name: 'Ben Smedley',
+    beltRank: '2nd Degree Black Belt',
+    role: 'Instructor',
+    shortBio:
+      'Ben focuses on our juniors team, building confidence and technique in young athletes.',
+    fullBio:
+      'Ben leads our juniors team, helping young athletes develop strong fundamentals, confidence, and a love for the sport in a supportive environment.',
+    photo: benSmedleyPhoto,
+    photoPosition: 'right top',
+  },
+  {
+    id: 'james-lewis',
+    name: 'James Lewis',
+    beltRank: '1st Degree Black Belt',
+    role: 'Instructor',
+    shortBio:
+      'Supports the junior and teens program with practical instructoring focused on fundamentals and live application.',
+    fullBio:
+      'James brings a practical and technical instructoring style, helping students develop strong fundamentals and apply them effectively in live training.',
+    photo: jamesLewisPhoto,
     photoPosition: 'center top',
   },
   {
     id: 'sian-dean',
     name: 'Sian Dean',
     beltRank: 'Purple Belt',
-    role: 'Coach',
+    role: 'Instructor',
     shortBio:
       'Teaches juniors and ladies classes with clear, supportive instruction.',
     fullBio:
