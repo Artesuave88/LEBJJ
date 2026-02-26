@@ -32,6 +32,12 @@
   $: currentPath = $page.url.pathname
   $: showMobileStickyBar = ['/', '/timetable', '/pricing'].includes(currentPath)
   $: year = new Date().getFullYear()
+
+  let mobileMenuOpen = false
+
+  $: if (currentPath) {
+    mobileMenuOpen = false
+  }
 </script>
 
 <SeoHead {seo} />
@@ -66,7 +72,52 @@
         <Button href="/trial" size="sm">Book a Free Trial</Button>
         <Button href={`tel:${PHONE_TEL}`} size="sm" variant="secondary">Call</Button>
       </div>
+
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 text-zinc-800 transition hover:bg-zinc-100 md:hidden"
+        aria-expanded={mobileMenuOpen}
+        aria-controls="mobile-nav"
+        aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+        on:click={() => (mobileMenuOpen = !mobileMenuOpen)}
+      >
+        {#if mobileMenuOpen}
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        {:else}
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        {/if}
+      </button>
     </Container>
+
+    {#if mobileMenuOpen}
+      <div id="mobile-nav" class="border-t border-zinc-200 bg-white md:hidden">
+        <Container class="space-y-3 py-3">
+          <nav class="flex flex-col gap-1">
+            {#each NAV_LINKS as link}
+              <a
+                href={link.href}
+                class={`rounded-lg px-3 py-2 text-sm font-semibold transition hover:bg-zinc-100 ${
+                  currentPath === link.href ? 'bg-red-50 text-red-700' : 'text-zinc-700'
+                }`}
+                on:click={() => (mobileMenuOpen = false)}
+              >
+                {link.label}
+              </a>
+            {/each}
+          </nav>
+          <div class="grid grid-cols-2 gap-2">
+            <Button href="/trial" size="sm" on:click={() => (mobileMenuOpen = false)}>Book Trial</Button>
+            <Button href={`tel:${PHONE_TEL}`} size="sm" variant="secondary" on:click={() => (mobileMenuOpen = false)}
+              >Call</Button
+            >
+          </div>
+        </Container>
+      </div>
+    {/if}
   </header>
 
   <main>

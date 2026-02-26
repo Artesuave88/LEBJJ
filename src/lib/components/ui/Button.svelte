@@ -28,11 +28,11 @@
 </script>
 
 {#if href}
-  <a href={href} target={target} rel={rel} class={classes} aria-disabled={disabled}>
+  <a href={href} target={target} rel={rel} class={classes} aria-disabled={disabled} on:click>
     <slot />
   </a>
 {:else}
-  <button type={type} class={classes} disabled={disabled}>
+  <button type={type} class={classes} disabled={disabled} on:click>
     <slot />
   </button>
 {/if}

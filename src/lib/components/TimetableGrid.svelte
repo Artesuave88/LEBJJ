@@ -16,6 +16,12 @@
   $: groupedByDay = weekDays
     .map((day) => ({ day, classes: orderedClasses.filter((item) => item.day === day) }))
     .filter((group) => group.classes.length > 0)
+
+  function giBadgeVariant(gi: TimetableClass['gi']): 'default' | 'red' | 'dark' {
+    if (gi === 'No-Gi') return 'dark'
+    if (gi === 'Gi') return 'red'
+    return 'default'
+  }
 </script>
 
 <div class="space-y-3 md:hidden">
@@ -31,7 +37,7 @@
             <p class="text-xs font-semibold uppercase tracking-wider text-red-700">{classItem.day}</p>
             <h3 class="mt-1 text-base font-semibold text-zinc-950">{classItem.title}</h3>
           </div>
-          <Badge variant={classItem.gi === 'No-Gi' ? 'dark' : 'red'}>{classItem.gi}</Badge>
+          <Badge variant={giBadgeVariant(classItem.gi)}>{classItem.gi}</Badge>
         </div>
         <p class="text-sm text-zinc-700">
           {formatTime(classItem.start)} - {formatTime(classItem.end)}
@@ -39,9 +45,6 @@
         </p>
         <div class="flex flex-wrap gap-2 text-xs text-zinc-600">
           <Badge>{classItem.program}</Badge>
-          {#if classItem.location}
-            <span class="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1">{classItem.location}</span>
-          {/if}
         </div>
       </Card>
     {/each}
@@ -62,13 +65,13 @@
             <article class="rounded-xl border border-zinc-200 bg-zinc-50 p-3">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <p class="font-semibold text-zinc-900">{classItem.title}</p>
-                <Badge variant={classItem.gi === 'No-Gi' ? 'dark' : 'red'}>{classItem.gi}</Badge>
+                <Badge variant={giBadgeVariant(classItem.gi)}>{classItem.gi}</Badge>
               </div>
               <p class="mt-1 text-sm text-zinc-700">
                 {formatTime(classItem.start)} - {formatTime(classItem.end)}
                 · {formatDuration(classDurationMinutes(classItem))}
               </p>
-              <p class="mt-1 text-xs text-zinc-600">{classItem.program}{classItem.location ? ` · ${classItem.location}` : ''}</p>
+              <p class="mt-1 text-xs text-zinc-600">{classItem.program}</p>
             </article>
           {/each}
         </div>

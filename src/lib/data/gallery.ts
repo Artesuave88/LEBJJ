@@ -10,9 +10,10 @@ export type GalleryItem = {
   src: string
   alt: string
   caption: string
+  objectPosition?: string
 }
 
-export const galleryItems: GalleryItem[] = [
+const fallbackGalleryItems: GalleryItem[] = [
   { id: 'drilling', src: image1, alt: 'BJJ drilling class', caption: 'Technical drilling sessions' },
   { id: 'kids', src: image2, alt: 'Kids BJJ class', caption: 'Structured kids classes' },
   { id: 'sparring', src: image3, alt: 'Live sparring rounds', caption: 'Controlled sparring rounds' },
@@ -20,3 +21,57 @@ export const galleryItems: GalleryItem[] = [
   { id: 'competition', src: image5, alt: 'Competition-focused training', caption: 'Competition team preparation' },
   { id: 'open-mat', src: image6, alt: 'Sunday open mat training', caption: 'Sunday open mat sessions' }
 ]
+
+const galleryImageModules = import.meta.glob('/src/lib/assets/gallery/*.{png,jpg,jpeg,webp,avif}', {
+  eager: true,
+  import: 'default'
+}) as Record<string, string>
+
+const galleryMetaOverrides: Record<
+  string,
+  Partial<Pick<GalleryItem, 'caption' | 'alt' | 'objectPosition'>>
+> = {
+  'LEBJJ-25-JMP-012': {
+    caption: 'Juniors Class Coaching',
+    alt: 'Coach guiding two junior students through a ground position drill'
+  },
+  'LEBJJ-25-JMP-013': {
+    caption: 'Kids Sparring Session',
+    alt: 'Coach supervising two junior students during controlled sparring'
+  }
+}
+
+function toSlug(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+}
+
+function toCaptionFromFilename(fileStem: string): string {
+  return fileStem
+    .split(/[-_]+/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+const discoveredGalleryItems: GalleryItem[] = Object.entries(galleryImageModules)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, src]) => {
+    const fileName = path.split('/').at(-1) ?? ''
+    const fileStem = fileName.replace(/\.[^.]+$/, '')
+    const fallbackCaption = toCaptionFromFilename(fileStem)
+    const override = galleryMetaOverrides[fileStem] ?? {}
+
+    return {
+      id: toSlug(fileStem),
+      src,
+      caption: override.caption ?? fallbackCaption,
+      alt: override.alt ?? `${fallbackCaption} at Long Eaton BJJ`,
+      objectPosition: override.objectPosition
+    }
+  })
+
+export const galleryItems: GalleryItem[] =
+  discoveredGalleryItems.length > 0 ? discoveredGalleryItems : fallbackGalleryItems

@@ -9,8 +9,8 @@ export const weekDays = [
 ] as const
 
 export type WeekDay = (typeof weekDays)[number]
-export type Program = 'Adults' | 'Kids' | 'Teens' | 'Ladies' | 'Open Mat'
-export type GiType = 'Gi' | 'No-Gi' | 'Mixed'
+export type Program = 'Adults' | 'Kids' | 'Teens' | 'Ladies' | 'Open Mat' | 'Fitness'
+export type GiType = 'Gi' | 'No-Gi' | 'Mixed' | 'Fitness'
 
 export type AudienceFilter = 'All' | 'Adults' | 'Kids'
 export type GiFilter = 'All' | 'Gi' | 'No-Gi'
@@ -154,9 +154,9 @@ export const timetableData: TimetableClass[] = [
     day: 'Friday',
     start: '18:15',
     end: '19:15',
-    title: 'Frost-fit Fitness Circuit',
-    program: 'Adults',
-    gi: 'No-Gi',
+    title: 'FrostFit Fitness Circuit',
+    program: 'Fitness',
+    gi: 'Fitness',
     location: defaultLocation
   },
   {
@@ -241,7 +241,7 @@ export function matchesAudience(item: TimetableClass, audience: AudienceFilter):
   if (audience === 'All') return true
 
   if (audience === 'Adults') {
-    return ['Adults', 'Ladies', 'Open Mat'].includes(item.program)
+    return ['Adults', 'Ladies', 'Open Mat', 'Fitness'].includes(item.program)
   }
 
   return ['Kids', 'Teens'].includes(item.program)

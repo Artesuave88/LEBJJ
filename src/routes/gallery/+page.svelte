@@ -37,7 +37,6 @@
     <SectionHeading
       eyebrow="Gallery"
       title="Inside Long Eaton BJJ"
-      description="A snapshot of training, coaching, and community moments across the week."
     />
 
     <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -52,6 +51,7 @@
               src={item.src}
               alt={item.alt}
               class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+              style={item.objectPosition ? `object-position: ${item.objectPosition};` : undefined}
               loading="lazy"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
@@ -72,6 +72,9 @@
         src={galleryItems[activeIndex].src}
         alt={galleryItems[activeIndex].alt}
         class="max-h-[78vh] w-full rounded-xl border border-white/20 object-contain"
+        style={galleryItems[activeIndex].objectPosition
+          ? `object-position: ${galleryItems[activeIndex].objectPosition};`
+          : undefined}
       />
 
       <div class="mt-3 flex items-center justify-between gap-2 text-white">

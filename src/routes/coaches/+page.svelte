@@ -41,6 +41,7 @@
                 src={coach.photo}
                 alt={`${coach.name} portrait`}
                 class="h-full w-full object-cover"
+                style={coach.photoPosition ? `object-position: ${coach.photoPosition};` : undefined}
                 loading="lazy"
                 sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
               />
@@ -81,6 +82,7 @@
           src={activeCoach.photo}
           alt={`${activeCoach.name} portrait`}
           class="aspect-[4/5] w-full rounded-xl border border-zinc-200 object-cover"
+          style={activeCoach.photoPosition ? `object-position: ${activeCoach.photoPosition};` : undefined}
           loading="lazy"
           sizes="(max-width: 640px) 100vw, 200px"
         />

@@ -61,7 +61,6 @@
     <SectionHeading
       eyebrow="Weekly schedule"
       title="Timetable"
-      description="Use filters to quickly find adults or kids sessions, and switch between Gi and No-Gi classes."
     />
 
     <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
