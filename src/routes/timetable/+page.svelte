@@ -15,8 +15,8 @@
     type GiFilter
   } from '$lib/data/timetable'
 
-  const audienceOptions: AudienceFilter[] = ['All', 'Adults', 'Kids']
-  const giOptions: GiFilter[] = ['All', 'Gi', 'No-Gi']
+  const audienceOptions: AudienceFilter[] = ['All', 'Adults', 'Ladies', 'Juniors', 'Teens']
+  const giOptions: GiFilter[] = ['All', 'Gi', 'No-Gi', 'Fitness']
 
   const storageKey = 'filters:/timetable'
 
@@ -83,7 +83,7 @@
         </div>
 
         <div>
-          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">Gi filter</p>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">Class type</p>
           <div class="flex flex-wrap gap-2">
             {#each giOptions as option}
               <button

@@ -12,8 +12,8 @@ export type WeekDay = (typeof weekDays)[number]
 export type Program = 'Adults' | 'Kids' | 'Teens' | 'Ladies' | 'Open Mat' | 'Fitness'
 export type GiType = 'Gi' | 'No-Gi' | 'Mixed' | 'Fitness'
 
-export type AudienceFilter = 'All' | 'Adults' | 'Kids'
-export type GiFilter = 'All' | 'Gi' | 'No-Gi'
+export type AudienceFilter = 'All' | 'Adults' | 'Ladies' | 'Juniors' | 'Teens'
+export type GiFilter = 'All' | 'Gi' | 'No-Gi' | 'Fitness'
 
 export type TimetableClass = {
   id: string
@@ -241,15 +241,24 @@ export function matchesAudience(item: TimetableClass, audience: AudienceFilter):
   if (audience === 'All') return true
 
   if (audience === 'Adults') {
-    return ['Adults', 'Ladies', 'Open Mat', 'Fitness'].includes(item.program)
+    return ['Adults', 'Open Mat', 'Fitness'].includes(item.program)
   }
 
-  return ['Kids', 'Teens'].includes(item.program)
+  if (audience === 'Ladies') {
+    return item.program === 'Ladies'
+  }
+
+  if (audience === 'Juniors') {
+    return item.program === 'Kids'
+  }
+
+  return item.program === 'Teens'
 }
 
 export function matchesGi(item: TimetableClass, giFilter: GiFilter): boolean {
   if (giFilter === 'All') return true
   if (giFilter === 'Gi') return item.gi === 'Gi' || item.gi === 'Mixed'
+  if (giFilter === 'Fitness') return item.gi === 'Fitness'
   return item.gi === 'No-Gi' || item.gi === 'Mixed'
 }
 
