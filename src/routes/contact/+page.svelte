@@ -3,7 +3,7 @@
   import Card from '$lib/components/ui/Card.svelte'
   import Container from '$lib/components/ui/Container.svelte'
   import SectionHeading from '$lib/components/ui/SectionHeading.svelte'
-  import { ADDRESS_LINES, MAPS_URL, OPENING_TIMES, PHONE_LABEL, PHONE_TEL, WHATSAPP_URL } from '$lib/config/site'
+  import { ADDRESS_LINES, MAPS_EMBED_URL, MAPS_URL, OPENING_TIMES, PHONE_LABEL, PHONE_TEL, WHATSAPP_URL } from '$lib/config/site'
 
   type ContactForm = {
     name: string
@@ -108,15 +108,19 @@
       </Card>
 
       <Card class="border-zinc-200">
-        <div class="aspect-video rounded-xl border border-dashed border-zinc-300 bg-zinc-50 p-4">
-          <div class="flex h-full flex-col items-center justify-center gap-2 text-center">
-            <p class="text-sm font-semibold text-zinc-800">Map embed placeholder</p>
-            <p class="text-xs text-zinc-600">Replace with Google Maps iframe when ready.</p>
-            <a href={MAPS_URL} target="_blank" rel="noreferrer" class="text-sm font-semibold text-red-700 hover:underline">
-              Open in Google Maps
-            </a>
-          </div>
+        <div class="overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50">
+          <iframe
+            title="Long Eaton BJJ location on Google Maps"
+            src={MAPS_EMBED_URL}
+            class="h-[320px] w-full md:h-[360px]"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
         </div>
+        <p class="mt-3 text-xs text-zinc-600">
+          If the map does not load, <a href={MAPS_URL} target="_blank" rel="noreferrer" class="font-semibold text-red-700 hover:underline">open it in Google Maps</a>.
+        </p>
       </Card>
     </div>
 

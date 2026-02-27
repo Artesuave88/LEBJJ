@@ -29,6 +29,10 @@ export const FULL_ADDRESS =
 
 export const MAPS_URL = `https://maps.google.com/?q=${encodeURIComponent(FULL_ADDRESS)}`
 
+const configuredMapsEmbedUrl = env.PUBLIC_GOOGLE_MAPS_EMBED_URL?.trim()
+export const MAPS_EMBED_URL =
+  configuredMapsEmbedUrl || `https://www.google.com/maps?output=embed&q=${encodeURIComponent(FULL_ADDRESS)}`
+
 export const WHATSAPP_NUMBER = '07765 990501'
 export const WHATSAPP_E164 = '447765990501'
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_E164}`
