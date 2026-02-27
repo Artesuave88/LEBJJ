@@ -151,7 +151,20 @@
 
   <footer class="border-t border-zinc-200 bg-white py-10">
     <Container class="flex flex-col items-start justify-between gap-4 text-sm text-zinc-600 md:flex-row md:items-center">
-      <p>© {year} {SITE_NAME}. All rights reserved.</p>
+      <div class="space-y-1">
+        <p>© {year} {SITE_NAME}. All rights reserved.</p>
+        <p class="text-xs text-zinc-500">
+          Website created by
+          <a
+            href="https://mds-web-beta.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+            class="font-semibold text-zinc-700 transition hover:text-red-700 hover:underline"
+          >
+            Michael Stevenson
+          </a>
+        </p>
+      </div>
       <div class="flex flex-wrap items-center gap-2">
         {#each socialLinks as social}
           <a
