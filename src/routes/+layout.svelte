@@ -161,7 +161,7 @@
             rel="noreferrer"
             class="font-semibold text-zinc-700 transition hover:text-red-700 hover:underline"
           >
-            Michael Stevenson
+            MDS Web Design
           </a>
         </p>
       </div>
