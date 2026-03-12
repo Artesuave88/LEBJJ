@@ -1,5 +1,6 @@
 <script lang="ts">
   import { instructors, type instructor } from '$lib/data/coaches'
+  import Button from '$lib/components/ui/Button.svelte'
   import Badge from '$lib/components/ui/Badge.svelte'
   import Card from '$lib/components/ui/Card.svelte'
   import Container from '$lib/components/ui/Container.svelte'
@@ -29,8 +30,22 @@
     <SectionHeading
       eyebrow="Instructor team"
       title="Experienced instructors, clear instruction"
-      description="Our instructors prioritise technical clarity, safe training, and long-term progression for every student."
+      description="Our instructors prioritise technical clarity, safe training, and long-term progression for every student. If you want more focused support, you can also enquire about 1-to-1 private sessions with a specific instructor."
     />
+
+    <Card class="border-zinc-200 bg-zinc-50 p-5">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="max-w-2xl">
+          <p class="text-sm font-semibold uppercase tracking-wide text-red-700">1-to-1 Privates</p>
+          <h2 class="mt-2 text-xl font-bold text-zinc-950">Focused coaching with the instructor you want</h2>
+          <p class="mt-2 text-sm text-zinc-700">
+            Private sessions are a good fit if you want help with specific positions, competition preparation, or a
+            more tailored introduction to BJJ. Open an instructor profile below to enquire directly with your preferred coach.
+          </p>
+        </div>
+        <Button href="/contact?inquiry=private">Ask about privates</Button>
+      </div>
+    </Card>
 
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {#each instructors as instructorProfile}
@@ -95,7 +110,18 @@
           loading="lazy"
           sizes="(max-width: 640px) 100vw, 200px"
         />
-        <p class="text-sm leading-relaxed text-zinc-700">{activeInstructor.fullBio}</p>
+        <div class="space-y-4">
+          <p class="text-sm leading-relaxed text-zinc-700">{activeInstructor.fullBio}</p>
+          <div class="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
+            <p class="text-sm font-semibold text-zinc-950">Interested in a 1-to-1 private with {activeInstructor.name}?</p>
+            <p class="mt-1 text-sm text-zinc-700">
+              Send an enquiry and we can confirm availability, session goals, and the best fit for your level.
+            </p>
+            <div class="mt-3">
+              <Button href={`/contact?inquiry=private&instructor=${activeInstructor.id}`}>Enquire with {activeInstructor.name}</Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

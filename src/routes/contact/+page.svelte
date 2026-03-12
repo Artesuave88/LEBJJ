@@ -1,14 +1,27 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
+  import { instructors } from '$lib/data/coaches'
   import Button from '$lib/components/ui/Button.svelte'
   import Card from '$lib/components/ui/Card.svelte'
   import Container from '$lib/components/ui/Container.svelte'
   import SectionHeading from '$lib/components/ui/SectionHeading.svelte'
   import { ADDRESS_LINES, MAPS_EMBED_URL, MAPS_URL, OPENING_TIMES, PHONE_LABEL, PHONE_TEL, WHATSAPP_URL } from '$lib/config/site'
 
+  const inquiryOptions = [
+    { value: 'general', label: 'General enquiry' },
+    { value: 'private', label: '1-to-1 private session' },
+    { value: 'kids', label: 'Kids / juniors' },
+    { value: 'membership', label: 'Membership / pricing' }
+  ] as const
+
+  type InquiryValue = (typeof inquiryOptions)[number]['value']
+
   type ContactForm = {
     name: string
     email: string
     phone: string
+    inquiryType: InquiryValue
+    preferredInstructor: string
     message: string
   }
 
@@ -18,12 +31,41 @@
     name: '',
     email: '',
     phone: '',
+    inquiryType: 'general',
+    preferredInstructor: '',
     message: ''
   }
 
   let errors: ContactErrors = {}
   let submitState: 'idle' | 'submitting' | 'success' | 'error' = 'idle'
   let statusMessage = ''
+
+  function applyQueryDefaults() {
+    if (typeof window === 'undefined') return
+
+    const params = new URLSearchParams(window.location.search)
+    const inquiry = params.get('inquiry')
+    const instructorId = params.get('instructor')
+
+    if (inquiry === 'private') {
+      form.inquiryType = 'private'
+      if (!form.message.trim()) {
+        form.message = 'Hi, I would like to enquire about a 1-to-1 private session.'
+      }
+    }
+
+    if (instructorId && instructors.some((instructor) => instructor.id === instructorId)) {
+      form.preferredInstructor = instructorId
+      if (!form.message.trim()) {
+        const selectedInstructor = instructors.find((instructor) => instructor.id === instructorId)
+        form.message = `Hi, I would like to enquire about a 1-to-1 private session with ${selectedInstructor?.name}.`
+      }
+    }
+  }
+
+  onMount(() => {
+    applyQueryDefaults()
+  })
 
   function validateEmail(value: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
@@ -35,6 +77,9 @@
     if (!form.name.trim()) nextErrors.name = 'Please enter your name.'
     if (!form.email.trim()) nextErrors.email = 'Please enter your email.'
     if (form.email && !validateEmail(form.email)) nextErrors.email = 'Please enter a valid email address.'
+    if (form.inquiryType === 'private' && !form.preferredInstructor) {
+      nextErrors.preferredInstructor = 'Please choose an instructor for the private-session enquiry.'
+    }
     if (!form.message.trim()) nextErrors.message = 'Please include a short message.'
 
     errors = nextErrors
@@ -67,7 +112,8 @@
 
       submitState = 'success'
       statusMessage = payload.message || 'Thanks. We have received your message.'
-      form = { name: '', email: '', phone: '', message: '' }
+      form = { name: '', email: '', phone: '', inquiryType: 'general', preferredInstructor: '', message: '' }
+      applyQueryDefaults()
       errors = {}
     } catch (error) {
       submitState = 'error'
@@ -81,7 +127,7 @@
     <SectionHeading
       eyebrow="Contact"
       title="Get in touch"
-      description="Send us a message and we will help you choose the right class for your level."
+      description="Send us a message and we will help you choose the right class, membership, or 1-to-1 private session."
     />
 
     <div class="grid gap-4 lg:grid-cols-2">
@@ -164,12 +210,41 @@
           />
         </label>
 
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="grid gap-2 text-sm font-medium text-zinc-800">
+            Enquiry type
+            <select
+              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              bind:value={form.inquiryType}
+            >
+              {#each inquiryOptions as option}
+                <option value={option.value}>{option.label}</option>
+              {/each}
+            </select>
+          </label>
+
+          <label class="grid gap-2 text-sm font-medium text-zinc-800">
+            Preferred instructor {form.inquiryType === 'private' ? '' : '(optional)'}
+            <select
+              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              bind:value={form.preferredInstructor}
+              aria-invalid={Boolean(errors.preferredInstructor)}
+            >
+              <option value="">{form.inquiryType === 'private' ? 'Select an instructor' : 'No preference'}</option>
+              {#each instructors as instructor}
+                <option value={instructor.id}>{instructor.name}</option>
+              {/each}
+            </select>
+            {#if errors.preferredInstructor}<span class="text-xs text-red-700">{errors.preferredInstructor}</span>{/if}
+          </label>
+        </div>
+
         <label class="grid gap-2 text-sm font-medium text-zinc-800">
           Message
           <textarea
             class="min-h-32 rounded-xl border border-zinc-300 px-3 py-2 outline-none focus:border-red-500"
             bind:value={form.message}
-            placeholder="Tell us which class you are interested in"
+            placeholder="Tell us what you want help with"
             aria-invalid={Boolean(errors.message)}
           ></textarea>
           {#if errors.message}<span class="text-xs text-red-700">{errors.message}</span>{/if}
