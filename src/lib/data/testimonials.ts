@@ -1,45 +1,31 @@
 export type Testimonial = {
-  id: string
-  name: string
-  type: 'Student' | 'Parent'
-  quote: string
-}
+  id: string;
+  name: string;
+  type: "Student" | "Parent";
+  quote: string;
+};
 
 export const testimonials: Testimonial[] = [
   {
-    id: 'tom',
-    name: 'Tom R.',
-    type: 'Student',
-    quote: 'Started as a total beginner. The instruction is clear, structured, and genuinely welcoming.'
+    id: "lizzie",
+    name: "Lizzie.",
+    type: "Student",
+    quote:
+      "I joined the club this summer and it has been the most friendliest BJJ place I’ve been to. It’s great for women to join, everyone is super friendly and the quality of the coaching from the professors is next level.",
   },
   {
-    id: 'ashley',
-    name: 'Ashley P.',
-    type: 'Parent',
-    quote: 'My son has grown in confidence massively. The kids classes are organised and supportive.'
+    id: "james",
+    name: "James",
+    type: "Student",
+    quote:
+      "Ive bee wanting to learn Jiujitsu for years, and I finally bit the bullet and signed up! I can't recommend this place enough. The coaches are all top of their game with good banter, white belts get the help needed to get started the right way and they even do the first session for free. ",
   },
+
   {
-    id: 'james',
-    name: 'James M.',
-    type: 'Student',
-    quote: 'Great mix of fundamentals and live rounds. You always leave class with a clear focus.'
+    id: "alaon",
+    name: "Alan M.",
+    type: "Parent",
+    quote:
+      "The kids BJJ classes are brilliant! I love the way this gym really works the kids and really does skill them up quickly while keeping it really fun and engaging",
   },
-  {
-    id: 'nicola',
-    name: 'Nicola B.',
-    type: 'Parent',
-    quote: 'Excellent instruction standards and a safe environment. Communication with parents is very good.'
-  },
-  {
-    id: 'ryan',
-    name: 'Ryan K.',
-    type: 'Student',
-    quote: 'No-Gi and Gi timetable is ideal. Plenty of sessions to train around work.'
-  },
-  {
-    id: 'georgia',
-    name: 'Georgia L.',
-    type: 'Student',
-    quote: 'The ladies sessions are friendly and technical. Brilliant place to build confidence quickly.'
-  }
-]
+];
