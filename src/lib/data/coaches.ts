@@ -117,3 +117,11 @@ export const instructors: instructor[] = [
     photoPosition: 'center top'
   }
 ]
+
+const privateInstructorIds = new Set(['michael-stevenson', 'emma', 'dan']);
+
+export const privateInstructors = instructors.filter((instructor) => privateInstructorIds.has(instructor.id));
+
+export function offersPrivateSessions(instructorId: string): boolean {
+  return privateInstructorIds.has(instructorId);
+}

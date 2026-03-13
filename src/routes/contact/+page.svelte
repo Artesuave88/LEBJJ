@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { instructors } from '$lib/data/coaches'
+  import { privateInstructors } from '$lib/data/coaches'
   import Button from '$lib/components/ui/Button.svelte'
   import Card from '$lib/components/ui/Card.svelte'
   import Container from '$lib/components/ui/Container.svelte'
@@ -54,10 +54,10 @@
       }
     }
 
-    if (instructorId && instructors.some((instructor) => instructor.id === instructorId)) {
+    if (instructorId && privateInstructors.some((instructor) => instructor.id === instructorId)) {
       form.preferredInstructor = instructorId
       if (!form.message.trim()) {
-        const selectedInstructor = instructors.find((instructor) => instructor.id === instructorId)
+        const selectedInstructor = privateInstructors.find((instructor) => instructor.id === instructorId)
         form.message = `Hi, I would like to enquire about a 1-to-1 private session with ${selectedInstructor?.name}.`
       }
     }
@@ -231,7 +231,7 @@
               aria-invalid={Boolean(errors.preferredInstructor)}
             >
               <option value="">{form.inquiryType === 'private' ? 'Select an instructor' : 'No preference'}</option>
-              {#each instructors as instructor}
+              {#each privateInstructors as instructor}
                 <option value={instructor.id}>{instructor.name}</option>
               {/each}
             </select>

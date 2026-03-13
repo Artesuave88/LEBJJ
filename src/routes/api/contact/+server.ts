@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit'
 import { env } from '$env/dynamic/private'
+import { offersPrivateSessions } from '$lib/data/coaches'
 import { sendEmailNotification } from '$lib/server/email-delivery'
 import type { RequestHandler } from './$types'
 
@@ -29,6 +30,16 @@ export const POST: RequestHandler = async ({ request }) => {
   const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   if (!emailLooksValid) {
     return json({ message: 'Please provide a valid email address.' }, { status: 400 })
+  }
+
+  if (inquiryType === 'private') {
+    if (!preferredInstructor) {
+      return json({ message: 'Please choose an instructor for the private-session enquiry.' }, { status: 400 })
+    }
+
+    if (!offersPrivateSessions(preferredInstructor)) {
+      return json({ message: 'Private sessions are currently limited to Michael Stevenson, Emma, and Dan.' }, { status: 400 })
+    }
   }
 
   const provider = env.CONTACT_PROVIDER || env.TRIAL_PROVIDER || 'log'

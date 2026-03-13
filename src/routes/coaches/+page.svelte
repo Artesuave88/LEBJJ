@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { instructors, type instructor } from '$lib/data/coaches'
+  import { instructors, offersPrivateSessions, type instructor } from '$lib/data/coaches'
   import Button from '$lib/components/ui/Button.svelte'
   import Badge from '$lib/components/ui/Badge.svelte'
   import Card from '$lib/components/ui/Card.svelte'
@@ -112,15 +112,17 @@
         />
         <div class="space-y-4">
           <p class="text-sm leading-relaxed text-zinc-700">{activeInstructor.fullBio}</p>
-          <div class="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-            <p class="text-sm font-semibold text-zinc-950">Interested in a 1-to-1 private with {activeInstructor.name}?</p>
-            <p class="mt-1 text-sm text-zinc-700">
-              Send an enquiry and we can confirm availability, session goals, and the best fit for your level.
-            </p>
-            <div class="mt-3">
-              <Button href={`/contact?inquiry=private&instructor=${activeInstructor.id}`}>Enquire with {activeInstructor.name}</Button>
+          {#if offersPrivateSessions(activeInstructor.id)}
+            <div class="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
+              <p class="text-sm font-semibold text-zinc-950">Interested in a 1-to-1 private with {activeInstructor.name}?</p>
+              <p class="mt-1 text-sm text-zinc-700">
+                Send an enquiry and we can confirm availability, session goals, and the best fit for your level.
+              </p>
+              <div class="mt-3">
+                <Button href={`/contact?inquiry=private&instructor=${activeInstructor.id}`}>Enquire with {activeInstructor.name}</Button>
+              </div>
             </div>
-          </div>
+          {/if}
         </div>
       </div>
     </div>
