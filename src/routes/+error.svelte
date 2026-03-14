@@ -10,7 +10,7 @@
   $: isNotFound = status === 404
   $: title = isNotFound ? 'Page Not Found' : 'Something Went Wrong'
   $: message =
-"Looks like this page tapped out.""
+"Looks like this page tapped out."
 </script>
 
 <svelte:head>
