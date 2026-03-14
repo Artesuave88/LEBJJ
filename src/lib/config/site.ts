@@ -10,7 +10,6 @@ export const SITE_URL = env.PUBLIC_SITE_URL?.trim() || "https://example.com";
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/timetable", label: "Timetable" },
-  { href: "/pricing", label: "Pricing" },
   { href: "/coaches", label: "Instructors" },
   { href: "/kids", label: "Kids" },
   { href: "/gallery", label: "Gallery" },
@@ -18,14 +17,14 @@ export const NAV_LINKS = [
 ];
 
 export const ADDRESS_LINES = [
-  "Unit A2 West End Mills",
+  "Floor 3, Unit A2 West End Mills",
   "Leopold Street",
   "Long Eaton, Derbyshire",
   "England, United Kingdom",
 ];
 
 export const FULL_ADDRESS =
-  "Unit A2 West End Mills, Leopold Street, Long Eaton, Derbyshire, England, United Kingdom";
+  "Floor 3, Unit A2 West End Mills, Leopold Street, Long Eaton, Derbyshire, England, United Kingdom";
 
 export const MAPS_URL = `https://maps.google.com/?q=${encodeURIComponent(FULL_ADDRESS)}`;
 

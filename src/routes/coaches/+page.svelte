@@ -52,16 +52,22 @@
         <button type="button" class="text-left" on:click={() => openInstructor(instructorProfile)}>
           <Card class="h-full border-zinc-200 p-4 transition hover:-translate-y-0.5 hover:shadow-md">
             <div class="aspect-[4/5] overflow-hidden rounded-xl border border-zinc-200">
-              <img
-                src={instructorProfile.photo}
-                alt={`${instructorProfile.name} portrait`}
-                class="h-full w-full object-cover"
-                style={instructorProfile.photoPosition
-                  ? `object-position: ${instructorProfile.photoPosition};`
-                  : undefined}
-                loading="lazy"
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
-              />
+              {#if instructorProfile.photo}
+                <img
+                  src={instructorProfile.photo}
+                  alt={`${instructorProfile.name} portrait`}
+                  class="h-full w-full object-cover"
+                  style={instructorProfile.photoPosition
+                    ? `object-position: ${instructorProfile.photoPosition};`
+                    : undefined}
+                  loading="lazy"
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
+                />
+              {:else}
+                <div class="flex h-full w-full items-center justify-center bg-zinc-100 px-4 text-center text-sm font-semibold text-zinc-500">
+                  Photo coming soon
+                </div>
+              {/if}
             </div>
             <h3 class="mt-4 text-lg font-bold text-zinc-950">{instructorProfile.name}</h3>
             <p class="text-sm font-semibold text-red-700">{instructorProfile.beltRank}</p>
@@ -100,16 +106,22 @@
       </div>
 
       <div class="mt-5 grid gap-4 sm:grid-cols-[200px_1fr]">
-        <img
-          src={activeInstructor.photo}
-          alt={`${activeInstructor.name} portrait`}
-          class="aspect-[4/5] w-full rounded-xl border border-zinc-200 object-cover"
-          style={activeInstructor.photoPosition
-            ? `object-position: ${activeInstructor.photoPosition};`
-            : undefined}
-          loading="lazy"
-          sizes="(max-width: 640px) 100vw, 200px"
-        />
+        {#if activeInstructor.photo}
+          <img
+            src={activeInstructor.photo}
+            alt={`${activeInstructor.name} portrait`}
+            class="aspect-[4/5] w-full rounded-xl border border-zinc-200 object-cover"
+            style={activeInstructor.photoPosition
+              ? `object-position: ${activeInstructor.photoPosition};`
+              : undefined}
+            loading="lazy"
+            sizes="(max-width: 640px) 100vw, 200px"
+          />
+        {:else}
+          <div class="flex aspect-[4/5] w-full items-center justify-center rounded-xl border border-zinc-200 bg-zinc-100 px-4 text-center text-sm font-semibold text-zinc-500">
+            Photo coming soon
+          </div>
+        {/if}
         <div class="space-y-4">
           <p class="text-sm leading-relaxed text-zinc-700">{activeInstructor.fullBio}</p>
           {#if offersPrivateSessions(activeInstructor.id)}

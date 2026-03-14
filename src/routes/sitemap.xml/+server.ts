@@ -4,7 +4,6 @@ import { SITE_URL } from "$lib/config/site";
 const staticPages = [
   "/",
   "/timetable",
-  "/pricing",
   "/coaches",
   "/kids",
   "/gallery",

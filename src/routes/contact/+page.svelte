@@ -11,7 +11,7 @@
     { value: 'general', label: 'General enquiry' },
     { value: 'private', label: '1-to-1 private session' },
     { value: 'kids', label: 'Kids / juniors' },
-    { value: 'membership', label: 'Membership / pricing' }
+    { value: 'membership', label: 'Membership enquiry' }
   ] as const
 
   type InquiryValue = (typeof inquiryOptions)[number]['value']

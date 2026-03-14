@@ -37,11 +37,6 @@ const ROUTE_SEO: Record<string, RouteSeoInput> = {
     description:
       "View the full weekly Long Eaton BJJ timetable for adults, kids, teens, ladies, and open mat.",
   },
-  "/pricing": {
-    title: "Pricing",
-    description:
-      "Simple Long Eaton BJJ membership options and FAQs to help you choose the right plan.",
-  },
   "/coaches": {
     title: "Instructors",
     description:

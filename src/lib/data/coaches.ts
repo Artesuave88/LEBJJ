@@ -4,7 +4,6 @@ import michaelStevensonPhoto from "$lib/assets/coaches/michael_stevenson.png";
 import markKiddPhoto from "$lib/assets/coaches/mark_kidd.png";
 import benSmedleyPhoto from "$lib/assets/coaches/ben_smedley.png";
 import jamesLewisPhoto from "$lib/assets/coaches/james_lewis.png";
-import emmaPhoto from "$lib/assets/coaches/emma.png";
 import danPhoto from "$lib/assets/coaches/dan.png";
 
 export type instructor = {
@@ -14,7 +13,7 @@ export type instructor = {
   role: string;
   shortBio: string;
   fullBio: string;
-  photo: string;
+  photo?: string;
   photoPosition?: string;
 };
 
@@ -74,9 +73,9 @@ export const instructors: instructor[] = [
     beltRank: "1st Degree Black Belt",
     role: "Instructor",
     shortBio:
-      "Known as the quiet giant of the gym, supporting juniors and teens with practical instruction.",
+      "Black belt with over 25 years of BJJ experience, teaching both adults and kids/teens classes.",
     fullBio:
-      "James brings a practical and technical instruction style, helping students develop strong fundamentals and apply them effectively in live training. He and his son both train at the academy, and he is known as the quiet giant of the gym.",
+      "James has over 25 years of BJJ experience and teaches both the adults and kids/teens classes at the academy. He brings a practical, technical instruction style that helps students build strong fundamentals and apply them effectively in live training.",
     photo: jamesLewisPhoto,
     photoPosition: "center top",
   },
@@ -101,7 +100,6 @@ export const instructors: instructor[] = [
       "Highest graded female instructor and founder of the ladies program.",
     fullBio:
       "Emma is a brown belt who started our ladies program and is the highest graded female at the academy. She teaches juniors, teens and ladies classes, helping students build confidence, technical fundamentals and safe training habits in every session.",
-    photo: emmaPhoto,
     photoPosition: "center top",
   },
   {

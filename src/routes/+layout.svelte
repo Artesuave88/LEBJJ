@@ -24,7 +24,7 @@
 
   $: currentPath = $page.url.pathname
   $: seo = data.seo ?? createRouteSeo(currentPath)
-  $: showMobileStickyBar = ['/', '/timetable', '/pricing'].includes(currentPath)
+  $: showMobileStickyBar = ['/', '/timetable'].includes(currentPath)
   $: year = new Date().getFullYear()
 
   const socialLinks = [
