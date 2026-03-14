@@ -4,7 +4,6 @@
   import Container from '$lib/components/ui/Container.svelte'
   import { SITE_NAME } from '$lib/config/site'
 
-  export let error: App.Error
   export let status: number
 
   $: isNotFound = status === 404
