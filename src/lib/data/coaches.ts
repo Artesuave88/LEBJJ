@@ -115,7 +115,15 @@ export const instructors: instructor[] = [
   },
 ];
 
-const privateInstructorIds = new Set(["michael-stevenson", "emma", "dan"]);
+const privateInstructorIds = new Set([
+  "michael-stevenson",
+  "emma",
+  "dan",
+  "mark-kidd",
+  "ben-smedley",
+  "james-lewis",
+  "sian-dean",
+]);
 
 export const privateInstructors = instructors.filter((instructor) =>
   privateInstructorIds.has(instructor.id),
