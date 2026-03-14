@@ -1,9 +1,9 @@
-import image1 from '$lib/assets/gallery-1.svg';
-import image2 from '$lib/assets/gallery-2.svg';
-import image3 from '$lib/assets/gallery-3.svg';
-import image4 from '$lib/assets/gallery-4.svg';
-import image5 from '$lib/assets/gallery-5.svg';
-import image6 from '$lib/assets/gallery-6.svg';
+import image1 from "$lib/assets/gallery-1.svg";
+import image2 from "$lib/assets/gallery-2.svg";
+import image3 from "$lib/assets/gallery-3.svg";
+import image4 from "$lib/assets/gallery-4.svg";
+import image5 from "$lib/assets/gallery-5.svg";
+import image6 from "$lib/assets/gallery-6.svg";
 
 export type GalleryItem = {
   id: string;
@@ -15,98 +15,98 @@ export type GalleryItem = {
 
 const fallbackGalleryItems: GalleryItem[] = [
   {
-    id: 'drilling',
+    id: "drilling",
     src: image1,
-    alt: 'BJJ drilling class',
-    caption: 'Technical drilling sessions',
+    alt: "BJJ drilling class",
+    caption: "Technical drilling sessions",
   },
   {
-    id: 'kids',
+    id: "kids",
     src: image2,
-    alt: 'Kids BJJ class',
-    caption: 'Structured kids classes',
+    alt: "Kids BJJ class",
+    caption: "Structured kids classes",
   },
   {
-    id: 'sparring',
+    id: "sparring",
     src: image3,
-    alt: 'Live sparring rounds',
-    caption: 'Controlled sparring rounds',
+    alt: "Live sparring rounds",
+    caption: "Controlled sparring rounds",
   },
   {
-    id: 'team-photo',
+    id: "team-photo",
     src: image4,
-    alt: 'Team photo at the gym',
-    caption: 'Community-first gym culture',
+    alt: "Team photo at the gym",
+    caption: "Community-first gym culture",
   },
   {
-    id: 'competition',
+    id: "competition",
     src: image5,
-    alt: 'Competition-focused training',
-    caption: 'Competition team preparation',
+    alt: "Competition-focused training",
+    caption: "Competition team preparation",
   },
   {
-    id: 'open-mat',
+    id: "open-mat",
     src: image6,
-    alt: 'Sunday open mat training',
-    caption: 'Sunday open mat sessions',
+    alt: "Sunday open mat training",
+    caption: "Sunday open mat sessions",
   },
 ];
 
 const galleryImageModules = import.meta.glob(
-  '/src/lib/assets/gallery/*.{png,jpg,jpeg,webp,avif}',
+  "/src/lib/assets/gallery/*.{png,jpg,jpeg,webp,avif}",
   {
     eager: true,
-    import: 'default',
+    import: "default",
   },
 ) as Record<string, string>;
 
 const galleryMetaOverrides: Record<
   string,
-  Partial<Pick<GalleryItem, 'caption' | 'alt' | 'objectPosition'>>
+  Partial<Pick<GalleryItem, "caption" | "alt" | "objectPosition">>
 > = {
-  'LEBJJ-25-JMP-012': {
-    caption: 'Juniors Class Instruction',
-    alt: 'Instructor guiding two junior students through a ground position drill',
+  "LEBJJ-25-JMP-012": {
+    caption: "Juniors Class Instruction",
+    alt: "Instructor guiding two junior students through a ground position drill",
   },
-  'LEBJJ-25-JMP-013': {
-    caption: 'Kids Sparring Session',
-    alt: 'Instructor supervising two junior students during controlled sparring',
+  "LEBJJ-25-JMP-013": {
+    caption: "Kids Sparring Session",
+    alt: "Instructor supervising two junior students during controlled sparring",
   },
-  'LE-BJJ-24-JM-030': {
-    caption: 'Instructor Photo',
-    alt: 'Long Eaton BJJ instructors posing for a group photo in the gym',
+  "LE-BJJ-24-JM-030": {
+    caption: "Instructor Photo",
+    alt: "Long Eaton BJJ instructors posing for a group photo in the gym",
   },
-  'LEBJJ-25-JMP-171': {
-    caption: 'Family-Friendly Gym Culture',
-    alt: 'Two instructors and two junior students posing together in the academy',
+  "LEBJJ-25-JMP-171": {
+    caption: "Family-Friendly Gym Culture",
+    alt: "Two instructors and two junior students posing together in the academy",
   },
-  'LEBJJ-25-JMP-011': {
-    caption: 'Technique Demonstration',
-    alt: 'An instructor demonstrating BJJ technique during class at Long Eaton BJJ',
+  "LEBJJ-25-JMP-011": {
+    caption: "Technique Demonstration",
+    alt: "An instructor demonstrating BJJ technique during class at Long Eaton BJJ",
   },
-  'LEBJJ-25-JMP-217': {
-    caption: 'Technical Drilling',
-    alt: 'Two students drilling a BJJ technique together during class at Long Eaton BJJ',
+  "LEBJJ-25-JMP-217": {
+    caption: "Technical Drilling",
+    alt: "Two students drilling a BJJ technique together during class at Long Eaton BJJ",
   },
-  'LEBJJ-25-JMP-219': {
-    caption: 'Sparring',
-    alt: 'Two students engaged in a controlled sparring session during class at Long Eaton BJJ',
+  "LEBJJ-25-JMP-219": {
+    caption: "Sparring",
+    alt: "Two students engaged in a controlled sparring session during class at Long Eaton BJJ",
   },
-  'LEBJJ-25-JMP-237': {
-    caption: 'Coffee Break ',
-    alt: 'Students taking a break and enjoying a coffee together at Long Eaton BJJ',
+  "LEBJJ-25-JMP-237": {
+    caption: "Coffee Break ",
+    alt: "Students taking a break and enjoying a coffee together at Long Eaton BJJ",
   },
-  'LEBJJ-25-JMP-257': {
-    caption: 'Black belt instruction',
-    alt: 'Black belt instructors',
+  "LEBJJ-25-JMP-257": {
+    caption: "Black belt instruction",
+    alt: "Black belt instructors",
   },
 };
 
 function toSlug(value: string): string {
   return value
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
 function toCaptionFromFilename(fileStem: string): string {
@@ -114,7 +114,7 @@ function toCaptionFromFilename(fileStem: string): string {
     .split(/[-_]+/)
     .filter(Boolean)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    .join(" ");
 }
 
 const discoveredGalleryItems: GalleryItem[] = Object.entries(
@@ -122,8 +122,8 @@ const discoveredGalleryItems: GalleryItem[] = Object.entries(
 )
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([path, src]) => {
-    const fileName = path.split('/').at(-1) ?? '';
-    const fileStem = fileName.replace(/\.[^.]+$/, '');
+    const fileName = path.split("/").at(-1) ?? "";
+    const fileStem = fileName.replace(/\.[^.]+$/, "");
     const fallbackCaption = toCaptionFromFilename(fileStem);
     const override = galleryMetaOverrides[fileStem] ?? {};
 
