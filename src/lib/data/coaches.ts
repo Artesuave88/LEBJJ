@@ -41,7 +41,7 @@ export const instructors: instructor[] = [
     fullBio:
       "Michael brings a technical and supportive approach to instruction, helping students sharpen fundamentals while building confidence in live training. He competes regularly, and his daughter also trains at the academy.",
     photo: michaelStevensonPhoto,
-    photoPosition: "center top",
+    photoPosition: "center 20%",
   },
 
   {
