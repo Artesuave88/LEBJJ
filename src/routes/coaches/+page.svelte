@@ -39,7 +39,7 @@
           <p class="text-sm font-semibold uppercase tracking-wide text-red-700">1-to-1 Privates</p>
           <h2 class="mt-2 text-xl font-bold text-zinc-950">Focused coaching with the instructor you want</h2>
           <p class="mt-2 text-sm text-zinc-700">
-At Long Eaton BJJ some of our instructors offer private sessions.Private sessions are a good fit if you want help with specific positions, competition preparation, or a
+At Long Eaton BJJ some of our instructors offer private sessions. Private sessions are a good fit if you want help with specific positions, competition preparation, or a
             more tailored introduction to BJJ.
           </p>
         </div>
