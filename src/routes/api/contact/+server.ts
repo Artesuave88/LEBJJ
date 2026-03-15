@@ -1,6 +1,7 @@
 import { json } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
-import { offersPrivateSessions } from "$lib/data/coaches";
+import { offersPrivateSessions, privateInstructors } from "$lib/data/coaches";
+import { formatSubmissionTimestamp } from "$lib/utils/date";
 import { sendEmailNotification } from "$lib/server/email-delivery";
 import type { RequestHandler } from "./$types";
 
@@ -54,8 +55,7 @@ export const POST: RequestHandler = async ({ request }) => {
     if (!offersPrivateSessions(preferredInstructor)) {
       return json(
         {
-          message:
-            "Private sessions are currently limited to Michael Stevenson, Emma, and Dan.",
+          message: `Private sessions are currently limited to ${privateInstructors.map((instructor) => instructor.name).join(", ")}.`,
         },
         { status: 400 },
       );
@@ -71,7 +71,7 @@ export const POST: RequestHandler = async ({ request }) => {
     "";
   const to = env.CONTACT_TO_EMAIL || env.TRIAL_TO_EMAIL || "";
   const from = env.CONTACT_FROM_EMAIL || env.TRIAL_FROM_EMAIL || "";
-  const receivedAt = new Date().toISOString();
+  const receivedAt = formatSubmissionTimestamp(new Date());
 
   const text = [
     "New contact form submission",

@@ -40,6 +40,15 @@
   let submitState: 'idle' | 'submitting' | 'success' | 'error' = 'idle'
   let statusMessage = ''
 
+  function handleInquiryTypeChange(value: InquiryValue) {
+    form.inquiryType = value
+
+    if (value !== 'private') {
+      form.preferredInstructor = ''
+      delete errors.preferredInstructor
+    }
+  }
+
   function applyQueryDefaults() {
     if (typeof window === 'undefined') return
 
@@ -55,6 +64,7 @@
     }
 
     if (instructorId && privateInstructors.some((instructor) => instructor.id === instructorId)) {
+      form.inquiryType = 'private'
       form.preferredInstructor = instructorId
       if (!form.message.trim()) {
         const selectedInstructor = privateInstructors.find((instructor) => instructor.id === instructorId)
@@ -216,6 +226,7 @@
             <select
               class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
               bind:value={form.inquiryType}
+              on:change={(event) => handleInquiryTypeChange((event.currentTarget as HTMLSelectElement).value as InquiryValue)}
             >
               {#each inquiryOptions as option}
                 <option value={option.value}>{option.label}</option>
@@ -223,20 +234,22 @@
             </select>
           </label>
 
-          <label class="grid gap-2 text-sm font-medium text-zinc-800">
-            Preferred instructor {form.inquiryType === 'private' ? '' : '(optional)'}
-            <select
-              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
-              bind:value={form.preferredInstructor}
-              aria-invalid={Boolean(errors.preferredInstructor)}
-            >
-              <option value="">{form.inquiryType === 'private' ? 'Select an instructor' : 'No preference'}</option>
-              {#each privateInstructors as instructor}
-                <option value={instructor.id}>{instructor.name}</option>
-              {/each}
-            </select>
-            {#if errors.preferredInstructor}<span class="text-xs text-red-700">{errors.preferredInstructor}</span>{/if}
-          </label>
+          {#if form.inquiryType === 'private'}
+            <label class="grid gap-2 text-sm font-medium text-zinc-800">
+              Preferred instructor
+              <select
+                class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+                bind:value={form.preferredInstructor}
+                aria-invalid={Boolean(errors.preferredInstructor)}
+              >
+                <option value="">Select an instructor</option>
+                {#each privateInstructors as instructor}
+                  <option value={instructor.id}>{instructor.name}</option>
+                {/each}
+              </select>
+              {#if errors.preferredInstructor}<span class="text-xs text-red-700">{errors.preferredInstructor}</span>{/if}
+            </label>
+          {/if}
         </div>
 
         <label class="grid gap-2 text-sm font-medium text-zinc-800">

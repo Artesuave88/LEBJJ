@@ -1,6 +1,7 @@
 import { json } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
 import { getClassLabelForSelect, timetableData } from "$lib/data/timetable";
+import { formatSubmissionTimestamp } from "$lib/utils/date";
 import { sendEmailNotification } from "$lib/server/email-delivery";
 import type { RequestHandler } from "./$types";
 
@@ -73,7 +74,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const to = env.TRIAL_TO_EMAIL || env.CONTACT_TO_EMAIL || "";
   const from = env.TRIAL_FROM_EMAIL || env.CONTACT_FROM_EMAIL || "";
   const classLabel = getClassLabelForSelect(selectedClass);
-  const receivedAt = new Date().toISOString();
+  const receivedAt = formatSubmissionTimestamp(new Date());
 
   const text = [
     "New free trial booking request",
