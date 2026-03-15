@@ -5,6 +5,7 @@ import markKiddPhoto from "$lib/assets/coaches/mark_kidd.png";
 import benSmedleyPhoto from "$lib/assets/coaches/ben_smedley.png";
 import jamesLewisPhoto from "$lib/assets/coaches/james_lewis.png";
 import danPhoto from "$lib/assets/coaches/dan.png";
+import emmaPhoto from "$lib/assets/coaches/emma.jpeg";
 
 export type instructor = {
   id: string;
@@ -93,14 +94,15 @@ export const instructors: instructor[] = [
   },
   {
     id: "emma",
-    name: "Emma",
+    name: "Emma Snow",
     beltRank: "Brown Belt",
     role: "Instructor",
     shortBio:
-      "Highest graded female instructor and founder of the ladies program.",
+      "Highest graded female instructor and founder of the ladies and teens programs.",
     fullBio:
-      "Emma is a brown belt who started our ladies program and is the highest graded female at the academy. She teaches juniors, teens and ladies classes, helping students build confidence, technical fundamentals and safe training habits in every session.",
-    photoPosition: "center top",
+      "Emma is a brown belt who started our ladies program and founded the teens classes, and is the highest graded female at the academy. She teaches juniors, teens and ladies classes, helping students build confidence, technical fundamentals and safe training habits in every session.",
+    photo: emmaPhoto,
+    photoPosition: "center 20%",
   },
   {
     id: "dan",
