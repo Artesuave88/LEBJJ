@@ -20,6 +20,7 @@
     name: string
     email: string
     phone: string
+    referralSource: string
     inquiryType: InquiryValue
     preferredInstructor: string
     message: string
@@ -31,6 +32,7 @@
     name: '',
     email: '',
     phone: '',
+    referralSource: '',
     inquiryType: 'general',
     preferredInstructor: '',
     message: ''
@@ -122,7 +124,7 @@
 
       submitState = 'success'
       statusMessage = payload.message || 'Thanks. We have received your message.'
-      form = { name: '', email: '', phone: '', inquiryType: 'general', preferredInstructor: '', message: '' }
+      form = { name: '', email: '', phone: '', referralSource: '', inquiryType: 'general', preferredInstructor: '', message: '' }
       applyQueryDefaults()
       errors = {}
     } catch (error) {
@@ -188,7 +190,7 @@
           <label class="grid gap-2 text-sm font-medium text-zinc-800">
             Name
             <input
-              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
               type="text"
               bind:value={form.name}
               placeholder="Your name"
@@ -200,7 +202,7 @@
           <label class="grid gap-2 text-sm font-medium text-zinc-800">
             Email
             <input
-              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
               type="email"
               bind:value={form.email}
               placeholder="you@example.com"
@@ -213,10 +215,20 @@
         <label class="grid gap-2 text-sm font-medium text-zinc-800">
           Phone (optional)
           <input
-            class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+            class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
             type="tel"
             bind:value={form.phone}
             placeholder="07765 990501"
+          />
+        </label>
+
+        <label class="grid gap-2 text-sm font-medium text-zinc-800">
+          How did you hear about us? (optional)
+          <input
+            class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+            type="text"
+            bind:value={form.referralSource}
+            placeholder="Google, Instagram, a friend, passing by..."
           />
         </label>
 
@@ -224,7 +236,7 @@
           <label class="grid gap-2 text-sm font-medium text-zinc-800">
             Enquiry type
             <select
-              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
               bind:value={form.inquiryType}
               on:change={(event) => handleInquiryTypeChange((event.currentTarget as HTMLSelectElement).value as InquiryValue)}
             >
@@ -238,7 +250,7 @@
             <label class="grid gap-2 text-sm font-medium text-zinc-800">
               Preferred instructor
               <select
-                class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+                class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
                 bind:value={form.preferredInstructor}
                 aria-invalid={Boolean(errors.preferredInstructor)}
               >
@@ -255,7 +267,7 @@
         <label class="grid gap-2 text-sm font-medium text-zinc-800">
           Message
           <textarea
-            class="min-h-32 rounded-xl border border-zinc-300 px-3 py-2 outline-none focus:border-red-500"
+            class="min-h-32 w-full min-w-0 rounded-xl border border-zinc-300 px-3 py-2 outline-none focus:border-red-500"
             bind:value={form.message}
             placeholder="Tell us what you want help with"
             aria-invalid={Boolean(errors.message)}

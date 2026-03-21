@@ -9,6 +9,7 @@ type ContactPayload = {
   name?: string;
   email?: string;
   phone?: string;
+  referralSource?: string;
   inquiryType?: string;
   preferredInstructor?: string;
   message?: string;
@@ -22,6 +23,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const name = payload?.name?.trim() || "";
   const email = payload?.email?.trim() || "";
   const phone = payload?.phone?.trim() || "";
+  const referralSource = payload?.referralSource?.trim() || "";
   const inquiryType = payload?.inquiryType?.trim() || "general";
   const preferredInstructor = payload?.preferredInstructor?.trim() || "";
   const message = payload?.message?.trim() || "";
@@ -79,6 +81,7 @@ export const POST: RequestHandler = async ({ request }) => {
     `Name: ${name}`,
     `Email: ${email}`,
     `Phone: ${phone || "Not provided"}`,
+    `How they heard about us: ${referralSource || "Not provided"}`,
     `Enquiry type: ${inquiryType}`,
     `Preferred instructor: ${preferredInstructor || "No preference"}`,
     `Message: ${message}`,
@@ -99,6 +102,7 @@ export const POST: RequestHandler = async ({ request }) => {
       name,
       email,
       phone: phone || null,
+      referralSource: referralSource || null,
       inquiryType,
       preferredInstructor: preferredInstructor || null,
       message,

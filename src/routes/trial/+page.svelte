@@ -23,6 +23,7 @@
     name: string
     email: string
     phone: string
+    referralSource: string
     bookingFor: BookingForValue | ''
     classId: string
   }
@@ -37,6 +38,7 @@
     name: '',
     email: '',
     phone: '',
+    referralSource: '',
     bookingFor: '',
     classId: ''
   }
@@ -88,7 +90,7 @@
 
       submitState = 'success'
       statusMessage = payload.message || 'Great, your trial request has been sent.'
-      form = { name: '', email: '', phone: '', bookingFor: '', classId: '' }
+      form = { name: '', email: '', phone: '', referralSource: '', bookingFor: '', classId: '' }
       errors = {}
     } catch (error) {
       submitState = 'error'
@@ -129,7 +131,7 @@
           <label class="grid gap-2 text-sm font-medium text-zinc-800">
             Name
             <input
-              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
               type="text"
               bind:value={form.name}
               placeholder="Your name"
@@ -141,7 +143,7 @@
           <label class="grid gap-2 text-sm font-medium text-zinc-800">
             Email
             <input
-              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
               type="email"
               bind:value={form.email}
               placeholder="you@example.com"
@@ -155,7 +157,7 @@
           <label class="grid gap-2 text-sm font-medium text-zinc-800">
             Phone (optional)
             <input
-              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
               type="tel"
               bind:value={form.phone}
               placeholder="07765 990501"
@@ -163,9 +165,21 @@
           </label>
 
           <label class="grid gap-2 text-sm font-medium text-zinc-800">
+            How did you hear about us? (optional)
+            <input
+              class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              type="text"
+              bind:value={form.referralSource}
+              placeholder="Google, Instagram, a friend, passing by..."
+            />
+          </label>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="grid gap-2 text-sm font-medium text-zinc-800">
             Booking for
             <select
-              class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+              class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
               bind:value={form.bookingFor}
               aria-invalid={Boolean(errors.bookingFor)}
             >
@@ -181,7 +195,7 @@
         <label class="grid gap-2 text-sm font-medium text-zinc-800">
           Choose class
           <select
-            class="h-11 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
+            class="h-11 w-full min-w-0 rounded-xl border border-zinc-300 px-3 outline-none focus:border-red-500"
             bind:value={form.classId}
             aria-invalid={Boolean(errors.classId)}
           >

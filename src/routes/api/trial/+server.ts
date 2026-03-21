@@ -9,6 +9,7 @@ type TrialPayload = {
   name?: string;
   email?: string;
   phone?: string;
+  referralSource?: string;
   bookingFor?: string;
   classId?: string;
 };
@@ -21,6 +22,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const name = payload?.name?.trim() || "";
   const email = payload?.email?.trim() || "";
   const phone = payload?.phone?.trim() || "";
+  const referralSource = payload?.referralSource?.trim() || "";
   const bookingFor = payload?.bookingFor?.trim() || "";
   const classId = payload?.classId?.trim() || "";
 
@@ -82,6 +84,7 @@ export const POST: RequestHandler = async ({ request }) => {
     `Name: ${name}`,
     `Email: ${email}`,
     `Phone: ${phone || "Not provided"}`,
+    `How they heard about us: ${referralSource || "Not provided"}`,
     `Booking for: ${bookingForLabel}`,
     `Class: ${classLabel}`,
     `Class ID: ${classId}`,
@@ -102,6 +105,7 @@ export const POST: RequestHandler = async ({ request }) => {
       name,
       email,
       phone: phone || null,
+      referralSource: referralSource || null,
       bookingFor,
       bookingForLabel,
       classId,
