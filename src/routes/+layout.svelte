@@ -156,12 +156,12 @@
         <p class="text-xs text-zinc-500">
           Website created by
           <a
-            href="https://mds-web-beta.vercel.app/"
+            href="https://midasweb.org"
             target="_blank"
             rel="noreferrer"
             class="font-semibold text-zinc-700 transition hover:text-red-700 hover:underline"
           >
-            MDS Web Design
+            Midas Web Design
           </a>
         </p>
       </div>
