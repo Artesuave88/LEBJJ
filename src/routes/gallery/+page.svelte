@@ -39,6 +39,18 @@
       title="Inside Long Eaton BJJ"
     />
 
+    <p class="text-sm text-zinc-600">
+      Photography by
+      <a
+        href="https://www.jennymacare.com/"
+        target="_blank"
+        rel="noreferrer"
+        class="font-semibold text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition hover:text-zinc-700"
+      >
+        Jenny Macare Photography
+      </a>
+    </p>
+
     <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {#each galleryItems as item, index}
         <button
