@@ -107,5 +107,16 @@
     </div>
 
     <TimetableGrid classes={filteredClasses} />
+
+    <div class="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 text-sm text-zinc-700">
+      <h2 class="font-bold text-zinc-950">Class information</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5">
+        <li>Membership and pay-as-you-train options are available.</li>
+        <li>Juniors: ages 5–10. Intermediate: ages 10–14.</li>
+        <li>All Levels Gi and No-Gi, Ladies, Open Mat and Fitness classes are for ages 14+.</li>
+        <li>Children under 14 may attend Open Mat with a responsible adult who is training.</li>
+        <li>Juniors and Intermediate classes are available on a membership basis only.</li>
+      </ul>
+    </div>
   </section>
 </Container>

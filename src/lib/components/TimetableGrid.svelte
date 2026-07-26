@@ -7,67 +7,61 @@
     formatTime,
     sortByDayAndTime,
     weekDays,
-    type Program,
     type TimetableClass
   } from '$lib/data/timetable'
 
   export let classes: TimetableClass[] = []
 
-  const programColours: Record<Program, { surface: string; accent: string; badge: string; dot: string }> = {
-    Adults: {
-      surface: 'border-red-200 bg-red-50',
-      accent: 'border-l-red-600',
-      badge: 'border-red-200 bg-red-100 text-red-800',
-      dot: 'bg-red-600'
+  type ClassColour = 'Adults Gi' | 'Adults No-Gi' | 'Ladies' | 'Juniors' | 'Intermediate' | 'Fitness' | 'Open Mat'
+
+  const classColours: Record<ClassColour, { surface: string; accent: string; badge: string }> = {
+    'Adults Gi': {
+      surface: 'border-zinc-300 bg-zinc-50',
+      accent: 'border-l-zinc-800',
+      badge: 'border-zinc-300 bg-zinc-200 text-zinc-900'
     },
-    Ladies: {
-      surface: 'border-fuchsia-200 bg-fuchsia-50',
-      accent: 'border-l-fuchsia-600',
-      badge: 'border-fuchsia-200 bg-fuchsia-100 text-fuchsia-800',
-      dot: 'bg-fuchsia-600'
-    },
-    Kids: {
-      surface: 'border-sky-200 bg-sky-50',
-      accent: 'border-l-sky-600',
-      badge: 'border-sky-200 bg-sky-100 text-sky-800',
-      dot: 'bg-sky-600'
-    },
-    Intermediate: {
-      surface: 'border-violet-200 bg-violet-50',
-      accent: 'border-l-violet-600',
-      badge: 'border-violet-200 bg-violet-100 text-violet-800',
-      dot: 'bg-violet-600'
-    },
-    Fitness: {
-      surface: 'border-amber-200 bg-amber-50',
-      accent: 'border-l-amber-500',
-      badge: 'border-amber-200 bg-amber-100 text-amber-900',
-      dot: 'bg-amber-500'
-    },
-    'Open Mat': {
+    'Adults No-Gi': {
       surface: 'border-emerald-200 bg-emerald-50',
       accent: 'border-l-emerald-600',
-      badge: 'border-emerald-200 bg-emerald-100 text-emerald-800',
-      dot: 'bg-emerald-600'
+      badge: 'border-emerald-200 bg-emerald-100 text-emerald-800'
+    },
+    Ladies: {
+      surface: 'border-purple-200 bg-purple-50',
+      accent: 'border-l-purple-700',
+      badge: 'border-purple-200 bg-purple-100 text-purple-800'
+    },
+    Juniors: {
+      surface: 'border-sky-200 bg-sky-50',
+      accent: 'border-l-sky-600',
+      badge: 'border-sky-200 bg-sky-100 text-sky-800'
+    },
+    Intermediate: {
+      surface: 'border-pink-200 bg-pink-50',
+      accent: 'border-l-pink-600',
+      badge: 'border-pink-200 bg-pink-100 text-pink-800'
+    },
+    Fitness: {
+      surface: 'border-orange-200 bg-orange-50',
+      accent: 'border-l-orange-500',
+      badge: 'border-orange-200 bg-orange-100 text-orange-900'
+    },
+    'Open Mat': {
+      surface: 'border-red-200 bg-red-50',
+      accent: 'border-l-red-600',
+      badge: 'border-red-200 bg-red-100 text-red-800'
     }
   }
 
-  const programLabels: Record<Program, string> = {
-    Adults: 'Adults',
-    Ladies: 'Ladies',
-    Kids: 'Juniors',
-    Intermediate: 'Intermediate',
-    Fitness: 'Fitness',
-    'Open Mat': 'Open Mat'
+  function classColour(classItem: TimetableClass): ClassColour {
+    if (classItem.program === 'Adults') return classItem.gi === 'Gi' ? 'Adults Gi' : 'Adults No-Gi'
+    if (classItem.program === 'Kids') return 'Juniors'
+    return classItem.program
   }
 
   $: orderedClasses = sortByDayAndTime(classes)
   $: groupedByDay = weekDays
     .map((day) => ({ day, classes: orderedClasses.filter((item) => item.day === day) }))
     .filter((group) => group.classes.length > 0)
-  $: visiblePrograms = (Object.keys(programColours) as Program[]).filter((program) =>
-    orderedClasses.some((item) => item.program === program)
-  )
 
   function giBadgeVariant(gi: TimetableClass['gi']): 'default' | 'red' | 'dark' {
     if (gi === 'No-Gi') return 'dark'
@@ -76,17 +70,6 @@
   }
 </script>
 
-{#if visiblePrograms.length > 0}
-  <div class="mb-4 flex flex-wrap gap-x-4 gap-y-2" aria-label="Class colour key">
-    {#each visiblePrograms as program}
-      <div class="flex items-center gap-2 text-sm font-medium text-zinc-700">
-        <span class={`h-3 w-3 rounded-full ${programColours[program].dot}`}></span>
-        <span>{programLabels[program]}</span>
-      </div>
-    {/each}
-  </div>
-{/if}
-
 <div class="space-y-3 md:hidden">
   {#if orderedClasses.length === 0}
     <Card>
@@ -94,7 +77,7 @@
     </Card>
   {:else}
     {#each orderedClasses as classItem}
-      <Card class={`space-y-3 border-l-4 p-4 ${programColours[classItem.program].accent}`}>
+      <Card class={`space-y-3 border-l-4 p-4 ${classColours[classColour(classItem)].accent}`}>
         <div class="flex items-start justify-between gap-3">
           <div>
             <p class="text-xs font-semibold uppercase tracking-wider text-red-700">{classItem.day}</p>
@@ -107,7 +90,7 @@
           · {formatDuration(classDurationMinutes(classItem))}
         </p>
         <div class="flex flex-wrap gap-2 text-xs text-zinc-600">
-          <Badge class={programColours[classItem.program].badge}>{programLabels[classItem.program]}</Badge>
+          <Badge class={classColours[classColour(classItem)].badge}>{classColour(classItem)}</Badge>
         </div>
       </Card>
     {/each}
@@ -125,7 +108,7 @@
         <h3 class="text-lg font-bold text-zinc-950">{dayGroup.day}</h3>
         <div class="space-y-3">
           {#each dayGroup.classes as classItem}
-            <article class={`rounded-xl border border-l-4 p-3 ${programColours[classItem.program].surface} ${programColours[classItem.program].accent}`}>
+            <article class={`rounded-xl border border-l-4 p-3 ${classColours[classColour(classItem)].surface} ${classColours[classColour(classItem)].accent}`}>
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <p class="font-semibold text-zinc-900">{classItem.title}</p>
                 <Badge variant={giBadgeVariant(classItem.gi)}>{classItem.gi}</Badge>
@@ -134,7 +117,7 @@
                 {formatTime(classItem.start)} - {formatTime(classItem.end)}
                 · {formatDuration(classDurationMinutes(classItem))}
               </p>
-              <p class="mt-1 text-xs font-medium text-zinc-700">{programLabels[classItem.program]}</p>
+              <p class="mt-1 text-xs font-medium text-zinc-700">{classColour(classItem)}</p>
             </article>
           {/each}
         </div>
