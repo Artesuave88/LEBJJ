@@ -12,13 +12,13 @@ export type WeekDay = (typeof weekDays)[number];
 export type Program =
   | "Adults"
   | "Kids"
-  | "Teens"
+  | "Intermediate"
   | "Ladies"
   | "Open Mat"
   | "Fitness";
 export type GiType = "Gi" | "No-Gi" | "Mixed" | "Fitness";
 
-export type AudienceFilter = "All" | "Adults" | "Ladies" | "Juniors" | "Teens";
+export type AudienceFilter = "All" | "Adults" | "Ladies" | "Juniors" | "Intermediate";
 export type GiFilter = "All" | "Gi" | "No-Gi" | "Fitness";
 
 export type TimetableClass = {
@@ -80,8 +80,8 @@ export const timetableData: TimetableClass[] = [
     day: "Tuesday",
     start: "17:30",
     end: "18:30",
-    title: "Teens Gi BJJ",
-    program: "Teens",
+    title: "Intermediate Gi BJJ",
+    program: "Intermediate",
     gi: "Gi",
     location: defaultLocation,
   },
@@ -100,8 +100,8 @@ export const timetableData: TimetableClass[] = [
     day: "Wednesday",
     start: "17:00",
     end: "18:00",
-    title: "Teens No-Gi BJJ",
-    program: "Teens",
+    title: "Intermediate No-Gi BJJ",
+    program: "Intermediate",
     gi: "No-Gi",
     location: defaultLocation,
   },
@@ -140,8 +140,8 @@ export const timetableData: TimetableClass[] = [
     day: "Thursday",
     start: "17:30",
     end: "18:30",
-    title: "Teens Gi BJJ",
-    program: "Teens",
+    title: "Intermediate Gi BJJ",
+    program: "Intermediate",
     gi: "Gi",
     location: defaultLocation,
   },
@@ -180,8 +180,8 @@ export const timetableData: TimetableClass[] = [
     day: "Saturday",
     start: "10:00",
     end: "11:00",
-    title: "Teens Gi BJJ",
-    program: "Teens",
+    title: "Intermediate Gi BJJ",
+    program: "Intermediate",
     gi: "Gi",
     location: defaultLocation,
   },
@@ -265,7 +265,7 @@ export function matchesAudience(
     return item.program === "Kids";
   }
 
-  return item.program === "Teens";
+  return item.program === "Intermediate";
 }
 
 export function matchesGi(item: TimetableClass, giFilter: GiFilter): boolean {

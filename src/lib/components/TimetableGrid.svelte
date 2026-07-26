@@ -12,6 +12,52 @@
 
   export let classes: TimetableClass[] = []
 
+  type ClassColour = 'Adults Gi' | 'Adults No-Gi' | 'Ladies' | 'Juniors' | 'Intermediate' | 'Fitness' | 'Open Mat'
+
+  const classColours: Record<ClassColour, { surface: string; accent: string; badge: string }> = {
+    'Adults Gi': {
+      surface: 'border-zinc-300 bg-zinc-50',
+      accent: 'border-l-zinc-800',
+      badge: 'border-zinc-300 bg-zinc-200 text-zinc-900'
+    },
+    'Adults No-Gi': {
+      surface: 'border-emerald-200 bg-emerald-50',
+      accent: 'border-l-emerald-600',
+      badge: 'border-emerald-200 bg-emerald-100 text-emerald-800'
+    },
+    Ladies: {
+      surface: 'border-purple-200 bg-purple-50',
+      accent: 'border-l-purple-700',
+      badge: 'border-purple-200 bg-purple-100 text-purple-800'
+    },
+    Juniors: {
+      surface: 'border-sky-200 bg-sky-50',
+      accent: 'border-l-sky-600',
+      badge: 'border-sky-200 bg-sky-100 text-sky-800'
+    },
+    Intermediate: {
+      surface: 'border-pink-200 bg-pink-50',
+      accent: 'border-l-pink-600',
+      badge: 'border-pink-200 bg-pink-100 text-pink-800'
+    },
+    Fitness: {
+      surface: 'border-orange-200 bg-orange-50',
+      accent: 'border-l-orange-500',
+      badge: 'border-orange-200 bg-orange-100 text-orange-900'
+    },
+    'Open Mat': {
+      surface: 'border-red-200 bg-red-50',
+      accent: 'border-l-red-600',
+      badge: 'border-red-200 bg-red-100 text-red-800'
+    }
+  }
+
+  function classColour(classItem: TimetableClass): ClassColour {
+    if (classItem.program === 'Adults') return classItem.gi === 'Gi' ? 'Adults Gi' : 'Adults No-Gi'
+    if (classItem.program === 'Kids') return 'Juniors'
+    return classItem.program
+  }
+
   $: orderedClasses = sortByDayAndTime(classes)
   $: groupedByDay = weekDays
     .map((day) => ({ day, classes: orderedClasses.filter((item) => item.day === day) }))
@@ -31,7 +77,7 @@
     </Card>
   {:else}
     {#each orderedClasses as classItem}
-      <Card class="space-y-3 p-4">
+      <Card class={`space-y-3 border-l-4 p-4 ${classColours[classColour(classItem)].accent}`}>
         <div class="flex items-start justify-between gap-3">
           <div>
             <p class="text-xs font-semibold uppercase tracking-wider text-red-700">{classItem.day}</p>
@@ -44,7 +90,7 @@
           · {formatDuration(classDurationMinutes(classItem))}
         </p>
         <div class="flex flex-wrap gap-2 text-xs text-zinc-600">
-          <Badge>{classItem.program}</Badge>
+          <Badge class={classColours[classColour(classItem)].badge}>{classColour(classItem)}</Badge>
         </div>
       </Card>
     {/each}
@@ -62,7 +108,7 @@
         <h3 class="text-lg font-bold text-zinc-950">{dayGroup.day}</h3>
         <div class="space-y-3">
           {#each dayGroup.classes as classItem}
-            <article class="rounded-xl border border-zinc-200 bg-zinc-50 p-3">
+            <article class={`rounded-xl border border-l-4 p-3 ${classColours[classColour(classItem)].surface} ${classColours[classColour(classItem)].accent}`}>
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <p class="font-semibold text-zinc-900">{classItem.title}</p>
                 <Badge variant={giBadgeVariant(classItem.gi)}>{classItem.gi}</Badge>
@@ -71,7 +117,7 @@
                 {formatTime(classItem.start)} - {formatTime(classItem.end)}
                 · {formatDuration(classDurationMinutes(classItem))}
               </p>
-              <p class="mt-1 text-xs text-zinc-600">{classItem.program}</p>
+              <p class="mt-1 text-xs font-medium text-zinc-700">{classColour(classItem)}</p>
             </article>
           {/each}
         </div>
