@@ -30,11 +30,23 @@ export type TimetableClass = {
   program: Program;
   gi: GiType;
   location?: string;
+  note?: string;
 };
 
 const defaultLocation = "Unit A2 West End Mills";
 
 export const timetableData: TimetableClass[] = [
+  {
+    id: "mon-all-levels-gi-morning",
+    day: "Monday",
+    start: "09:30",
+    end: "11:00",
+    title: "All Levels Gi BJJ",
+    program: "Adults",
+    gi: "Gi",
+    location: defaultLocation,
+    note: "Subject to change",
+  },
   {
     id: "mon-junior-nogi",
     day: "Monday",

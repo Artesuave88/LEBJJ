@@ -89,6 +89,9 @@
           {formatTime(classItem.start)} - {formatTime(classItem.end)}
           · {formatDuration(classDurationMinutes(classItem))}
         </p>
+        {#if classItem.note}
+          <p class="text-xs font-semibold text-amber-800">{classItem.note}</p>
+        {/if}
         <div class="flex flex-wrap gap-2 text-xs text-zinc-600">
           <Badge class={classColours[classColour(classItem)].badge}>{classColour(classItem)}</Badge>
         </div>
@@ -117,6 +120,9 @@
                 {formatTime(classItem.start)} - {formatTime(classItem.end)}
                 · {formatDuration(classDurationMinutes(classItem))}
               </p>
+              {#if classItem.note}
+                <p class="mt-1 text-xs font-semibold text-amber-800">{classItem.note}</p>
+              {/if}
               <p class="mt-1 text-xs font-medium text-zinc-700">{classColour(classItem)}</p>
             </article>
           {/each}
