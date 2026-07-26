@@ -15,7 +15,7 @@
     type GiFilter
   } from '$lib/data/timetable'
 
-  const audienceOptions: AudienceFilter[] = ['All', 'Adults', 'Ladies', 'Juniors', 'Teens']
+  const audienceOptions: AudienceFilter[] = ['All', 'Adults', 'Ladies', 'Juniors', 'Intermediate']
   const giOptions: GiFilter[] = ['All', 'Gi', 'No-Gi', 'Fitness']
 
   const storageKey = 'filters:/timetable'
