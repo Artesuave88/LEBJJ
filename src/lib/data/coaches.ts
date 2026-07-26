@@ -81,15 +81,14 @@ export const instructors: instructor[] = [
     photoPosition: "center top",
   },
   {
-    id: "sian-dean",
-    name: "Sian Dean",
-    beltRank: "Purple Belt",
+    id: "dan",
+    name: "Dan Mackey",
+    beltRank: "Black Belt",
     role: "Instructor",
-    shortBio:
-      "Teaches juniors and ladies classes with clear, supportive instruction.",
+    shortBio: "Black belt instructor who is usually leading the No-Gi classes.",
     fullBio:
-      "Sian teaches juniors and ladies classes, helping students build strong fundamentals, confidence and safe training habits in every session. She and Mikey are married, and their two daughters also train.",
-    photo: sianDeanPhoto,
+      "Dan is a black belt and can usually be found running the No-Gi classes, helping students develop timing, pressure and practical grappling skills for live training.",
+    photo: danPhoto,
     photoPosition: "center top",
   },
   {
@@ -105,14 +104,15 @@ export const instructors: instructor[] = [
     photoPosition: "center 20%",
   },
   {
-    id: "dan",
-    name: "Dan Mackey",
-    beltRank: "Black Belt",
+    id: "sian-dean",
+    name: "Sian Dean",
+    beltRank: "Purple Belt",
     role: "Instructor",
-    shortBio: "Black belt instructor who is usually leading the No-Gi classes.",
+    shortBio:
+      "Teaches juniors and ladies classes with clear, supportive instruction.",
     fullBio:
-      "Dan is a black belt and can usually be found running the No-Gi classes, helping students develop timing, pressure and practical grappling skills for live training.",
-    photo: danPhoto,
+      "Sian teaches juniors and ladies classes, helping students build strong fundamentals, confidence and safe training habits in every session. She and Mikey are married, and their two daughters also train.",
+    photo: sianDeanPhoto,
     photoPosition: "center top",
   },
 ];
