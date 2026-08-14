@@ -7,6 +7,7 @@ type SendEmailInput = {
   from?: string;
   subject: string;
   text: string;
+  html?: string;
   replyTo?: string;
   logLabel: string;
   logPayload: Record<string, unknown>;
@@ -30,6 +31,7 @@ async function sendWithResend(input: {
   from: string;
   subject: string;
   text: string;
+  html?: string;
   replyTo?: string;
 }): Promise<Response> {
   return fetch("https://api.resend.com/emails", {
@@ -43,6 +45,7 @@ async function sendWithResend(input: {
       to: [input.to],
       subject: input.subject,
       text: input.text,
+      html: input.html,
       reply_to: input.replyTo || undefined,
     }),
   });
@@ -54,6 +57,7 @@ async function sendWithSendgrid(input: {
   from: string;
   subject: string;
   text: string;
+  html?: string;
   replyTo?: string;
 }): Promise<Response> {
   return fetch("https://api.sendgrid.com/v3/mail/send", {
@@ -66,7 +70,10 @@ async function sendWithSendgrid(input: {
       personalizations: [{ to: [{ email: input.to }] }],
       from: { email: input.from },
       subject: input.subject,
-      content: [{ type: "text/plain", value: input.text }],
+      content: [
+        { type: "text/plain", value: input.text },
+        ...(input.html ? [{ type: "text/html", value: input.html }] : []),
+      ],
       reply_to: input.replyTo ? { email: input.replyTo } : undefined,
     }),
   });
@@ -116,6 +123,7 @@ export async function sendEmailNotification(
             from,
             subject: input.subject,
             text: input.text,
+            html: input.html,
             replyTo: input.replyTo,
           })
         : await sendWithSendgrid({
@@ -124,6 +132,7 @@ export async function sendEmailNotification(
             from,
             subject: input.subject,
             text: input.text,
+            html: input.html,
             replyTo: input.replyTo,
           });
 
