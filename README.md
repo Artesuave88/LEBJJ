@@ -18,12 +18,14 @@ Multi-page SvelteKit website for Long Eaton BJJ, built with Tailwind CSS and rea
 - `/gallery` Responsive gallery + lightbox
 - `/contact` Contact page + validated form
 - `/trial` Trial booking flow + timetable class dropdown
+- `/seminars/saul-rogers` Seminar details + registration request form
 
 ## API endpoints
 
 - `GET /api/health`
 - `POST /api/contact`
 - `POST /api/trial`
+- `POST /api/seminar-registration`
 - `GET /robots.txt`
 - `GET /sitemap.xml`
 
@@ -64,6 +66,10 @@ Optional future provider keys:
 - `CONTACT_FROM_EMAIL` (fallback sender address)
 - `TRIAL_TO_EMAIL` (trial booking recipient inbox)
 - `TRIAL_FROM_EMAIL` (trial booking sender address)
+- `SEMINAR_PROVIDER` (optional override for seminar registrations)
+- `SEMINAR_PROVIDER_API_KEY`
+- `SEMINAR_TO_EMAIL` (seminar registration recipient inbox)
+- `SEMINAR_FROM_EMAIL` (seminar registration sender address)
 
 ## Vercel deployment
 

@@ -13,6 +13,7 @@ export const NAV_LINKS = [
   { href: "/coaches", label: "Instructors" },
   { href: "/kids", label: "Kids" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/seminars/saul-rogers", label: "Seminar" },
   { href: "/contact", label: "Contact" },
 ];
 

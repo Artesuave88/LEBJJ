@@ -62,6 +62,11 @@ const ROUTE_SEO: Record<string, RouteSeoInput> = {
     description:
       "Book your free trial class at Long Eaton BJJ and choose a timetable slot that suits you.",
   },
+  "/seminars/saul-rogers": {
+    title: "Saul Rogers BJJ Seminar",
+    description:
+      "Join Saul Rogers at Long Eaton BJJ for a three-hour No-Gi seminar on attacking the front headlock on Saturday 12 September 2026.",
+  },
 };
 
 function normalizePath(path: string): string {
