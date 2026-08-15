@@ -27,3 +27,6 @@ dist-ssr
 .svelte-kit/
 .vercel/
 .vite/
+.private/
+/long-eaton-bjj-check-in-qr.png
+/long-eaton-bjj-check-in-qr.svg

@@ -27,7 +27,9 @@ export function grantCheckInAccess(cookies: Cookies, accessToken: string): void 
   cookies.set(CHECK_IN_COOKIE, sessionValue(accessToken), {
     path: "/",
     httpOnly: true,
-    sameSite: "strict",
+    // QR scanner apps hand the URL to a browser as an external top-level
+    // navigation. Lax allows that handoff while still blocking cross-site POSTs.
+    sameSite: "lax",
     secure: !dev,
     maxAge: 60 * 60 * 8,
   });
