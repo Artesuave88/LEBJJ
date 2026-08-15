@@ -62,6 +62,10 @@ const ROUTE_SEO: Record<string, RouteSeoInput> = {
     description:
       "Book your free trial class at Long Eaton BJJ and choose a timetable slot that suits you.",
   },
+  "/check-in": {
+    title: "Check into Class",
+    description: "Check into your Long Eaton BJJ class and record your attendance.",
+  },
   "/seminars/saul-rogers": {
     title: "Saul Rogers BJJ Seminar",
     description:
