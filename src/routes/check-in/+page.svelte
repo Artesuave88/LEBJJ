@@ -9,7 +9,6 @@
 
   let name = ''
   let classId = ''
-  let attendeeType: 'Member' | 'Visitor' = 'Member'
   let website = ''
   let submitState: 'idle' | 'submitting' | 'success' | 'error' = 'idle'
   let statusMessage = ''
@@ -22,7 +21,7 @@
 
     if (!name.trim() || !classId) {
       submitState = 'error'
-      statusMessage = 'Enter your name and choose the class you are attending.'
+      statusMessage = 'Enter your name and choose a class or Visitor.'
       return
     }
 
@@ -32,7 +31,7 @@
       const response = await fetch('/api/check-in', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ name, classId, attendeeType, website })
+        body: JSON.stringify({ name, classId, website })
       })
       const payload = (await response.json()) as { message?: string }
 
@@ -42,7 +41,6 @@
       statusMessage = payload.message || 'You are checked in. Enjoy the class!'
       name = ''
       classId = ''
-      attendeeType = 'Member'
       website = ''
     } catch (error) {
       submitState = 'error'
@@ -91,28 +89,17 @@
           </label>
 
           <label class="grid gap-2 text-sm font-semibold text-zinc-800">
-            {data.today}'s class
+            Class or visitor
             <select
               class="h-14 w-full rounded-xl border border-zinc-300 bg-white px-4 text-base outline-none transition focus:border-red-600 focus:ring-2 focus:ring-red-100"
               bind:value={classId}
               disabled={submitState === 'submitting'}
             >
-              <option value="">Choose your class</option>
+              <option value="">Choose a class or Visitor</option>
               {#each classOptions as item}
                 <option value={item.id}>{formatTime(item.start)} - {item.title}</option>
               {/each}
-            </select>
-          </label>
-
-          <label class="grid gap-2 text-sm font-semibold text-zinc-800">
-            Attendee type
-            <select
-              class="h-14 w-full rounded-xl border border-zinc-300 bg-white px-4 text-base outline-none transition focus:border-red-600 focus:ring-2 focus:ring-red-100"
-              bind:value={attendeeType}
-              disabled={submitState === 'submitting'}
-            >
-              <option value="Member">Member</option>
-              <option value="Visitor">Visitor</option>
+              <option value="visitor">Visitor</option>
             </select>
           </label>
 

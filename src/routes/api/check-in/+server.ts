@@ -8,7 +8,6 @@ import type { RequestHandler } from "./$types";
 type CheckInPayload = {
   name?: string;
   classId?: string;
-  attendeeType?: string;
   website?: string;
 };
 
@@ -26,7 +25,6 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
   const payload = (await request.json().catch(() => null)) as CheckInPayload | null;
   const name = payload?.name?.trim() || "";
   const classId = payload?.classId?.trim() || "";
-  const attendeeType = payload?.attendeeType?.trim() || "Member";
 
   // Quietly accept bot submissions without writing them to the sheet.
   if (payload?.website) {
@@ -34,23 +32,21 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
   }
 
   if (!name || !classId) {
-    return json({ message: "Your name and class are required." }, { status: 400 });
+    return json({ message: "Your name and a class or Visitor are required." }, { status: 400 });
   }
 
   if (name.length > 100) {
     return json({ message: "Please enter a shorter name." }, { status: 400 });
   }
 
-  if (attendeeType !== "Member" && attendeeType !== "Visitor") {
-    return json({ message: "Please choose a valid attendee type." }, { status: 400 });
-  }
-
   const selectedClass = timetableData.find((item) => item.id === classId);
-  if (!selectedClass) {
+  const isVisitor = classId === "visitor";
+
+  if (!selectedClass && !isVisitor) {
     return json({ message: "Please choose a valid class." }, { status: 400 });
   }
 
-  if (selectedClass.day !== getGymWeekDay()) {
+  if (selectedClass && selectedClass.day !== getGymWeekDay()) {
     return json({ message: "Please choose one of today's classes." }, { status: 400 });
   }
 
@@ -72,9 +68,8 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
       body: JSON.stringify({
         secret: webhookSecret,
         name,
-        attendeeType,
         classId,
-        classLabel: getClassLabelForSelect(selectedClass),
+        classLabel: isVisitor ? "Visitor" : getClassLabelForSelect(selectedClass!),
         checkedInAt: new Date().toISOString(),
       }),
       signal: AbortSignal.timeout(8_000),
