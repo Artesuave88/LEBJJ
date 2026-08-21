@@ -8,6 +8,7 @@ import type { RequestHandler } from "./$types";
 type CheckInPayload = {
   name?: string;
   classId?: string;
+  attendeeType?: string;
   website?: string;
 };
 
@@ -25,6 +26,7 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
   const payload = (await request.json().catch(() => null)) as CheckInPayload | null;
   const name = payload?.name?.trim() || "";
   const classId = payload?.classId?.trim() || "";
+  const attendeeType = payload?.attendeeType?.trim() || "Member";
 
   // Quietly accept bot submissions without writing them to the sheet.
   if (payload?.website) {
@@ -37,6 +39,10 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
 
   if (name.length > 100) {
     return json({ message: "Please enter a shorter name." }, { status: 400 });
+  }
+
+  if (attendeeType !== "Member" && attendeeType !== "Visitor") {
+    return json({ message: "Please choose a valid attendee type." }, { status: 400 });
   }
 
   const selectedClass = timetableData.find((item) => item.id === classId);
@@ -66,6 +72,7 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
       body: JSON.stringify({
         secret: webhookSecret,
         name,
+        attendeeType,
         classId,
         classLabel: getClassLabelForSelect(selectedClass),
         checkedInAt: new Date().toISOString(),

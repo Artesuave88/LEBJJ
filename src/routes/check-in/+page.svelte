@@ -9,6 +9,7 @@
 
   let name = ''
   let classId = ''
+  let attendeeType: 'Member' | 'Visitor' = 'Member'
   let website = ''
   let submitState: 'idle' | 'submitting' | 'success' | 'error' = 'idle'
   let statusMessage = ''
@@ -31,7 +32,7 @@
       const response = await fetch('/api/check-in', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ name, classId, website })
+        body: JSON.stringify({ name, classId, attendeeType, website })
       })
       const payload = (await response.json()) as { message?: string }
 
@@ -41,6 +42,7 @@
       statusMessage = payload.message || 'You are checked in. Enjoy the class!'
       name = ''
       classId = ''
+      attendeeType = 'Member'
       website = ''
     } catch (error) {
       submitState = 'error'
@@ -99,6 +101,18 @@
               {#each classOptions as item}
                 <option value={item.id}>{formatTime(item.start)} - {item.title}</option>
               {/each}
+            </select>
+          </label>
+
+          <label class="grid gap-2 text-sm font-semibold text-zinc-800">
+            Attendee type
+            <select
+              class="h-14 w-full rounded-xl border border-zinc-300 bg-white px-4 text-base outline-none transition focus:border-red-600 focus:ring-2 focus:ring-red-100"
+              bind:value={attendeeType}
+              disabled={submitState === 'submitting'}
+            >
+              <option value="Member">Member</option>
+              <option value="Visitor">Visitor</option>
             </select>
           </label>
 

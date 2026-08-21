@@ -31,13 +31,14 @@ function doPost(event) {
     if (!sheet) return jsonResponse({ ok: false, error: 'Check-ins sheet not found' });
 
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Checked in at', 'Name', 'Class', 'Class ID']);
+      sheet.appendRow(['Checked in at', 'Name', 'Attendee type', 'Class', 'Class ID']);
       sheet.setFrozenRows(1);
     }
 
     sheet.appendRow([
       new Date(data.checkedInAt),
       safeCell(data.name),
+      safeCell(data.attendeeType),
       safeCell(data.classLabel),
       safeCell(data.classId)
     ]);
