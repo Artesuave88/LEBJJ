@@ -2,7 +2,7 @@ import { env } from "$env/dynamic/private";
 import { json } from "@sveltejs/kit";
 import { getClassLabelForSelect, timetableData } from "$lib/data/timetable";
 import { hasCheckInAccess } from "$lib/server/check-in-access";
-import { getGymWeekDay } from "$lib/utils/date";
+import { getGymDateKey, getGymWeekDay } from "$lib/utils/date";
 import type { RequestHandler } from "./$types";
 
 type CheckInPayload = {
@@ -62,6 +62,9 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
   }
 
   try {
+    const checkedInAt = new Date();
+    const normalizedName = name.toLocaleLowerCase("en-GB").replace(/\s+/g, " ");
+
     const response = await fetch(webhookUrl, {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -70,7 +73,9 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
         name,
         classId,
         classLabel: isVisitor ? "Visitor" : getClassLabelForSelect(selectedClass!),
-        checkedInAt: new Date().toISOString(),
+        checkedInAt: checkedInAt.toISOString(),
+        // One person can only check into a given class once per gym-local day.
+        idempotencyKey: `${getGymDateKey(checkedInAt)}:${classId}:${normalizedName}`,
       }),
       signal: AbortSignal.timeout(8_000),
     });
@@ -79,7 +84,11 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
       throw new Error(`Google Sheets webhook returned ${response.status}`);
     }
 
-    const result = (await response.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+    const result = (await response.json().catch(() => null)) as {
+      ok?: boolean;
+      duplicate?: boolean;
+      error?: string;
+    } | null;
     if (!result?.ok) throw new Error(result?.error || "Google Sheets did not confirm the check-in");
   } catch (error) {
     console.error("[check-in] Unable to save attendance", error);

@@ -17,6 +17,9 @@
 
   async function handleSubmit(event: SubmitEvent) {
     event.preventDefault()
+
+    if (submitState === 'submitting') return
+
     statusMessage = ''
 
     if (!name.trim() || !classId) {

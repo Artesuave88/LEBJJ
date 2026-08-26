@@ -30,19 +30,39 @@ function doPost(event) {
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
     if (!sheet) return jsonResponse({ ok: false, error: 'Check-ins sheet not found' });
 
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Checked in at', 'Name', 'Class', 'Class ID']);
-      sheet.setFrozenRows(1);
+    const lock = LockService.getScriptLock();
+    lock.waitLock(10000);
+
+    try {
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(['Checked in at', 'Name', 'Class', 'Class ID', 'Idempotency key']);
+        sheet.setFrozenRows(1);
+        sheet.hideColumns(5);
+      } else if (!sheet.getRange(1, 5).getValue()) {
+        sheet.getRange(1, 5).setValue('Idempotency key');
+        sheet.hideColumns(5);
+      }
+
+      const lastRow = sheet.getLastRow();
+      if (lastRow > 1) {
+        const existingKeys = sheet.getRange(2, 5, lastRow - 1, 1).getDisplayValues();
+        if (existingKeys.some(([key]) => key === data.idempotencyKey)) {
+          return jsonResponse({ ok: true, duplicate: true });
+        }
+      }
+
+      sheet.appendRow([
+        new Date(data.checkedInAt),
+        safeCell(data.name),
+        safeCell(data.classLabel),
+        safeCell(data.classId),
+        safeCell(data.idempotencyKey)
+      ]);
+
+      return jsonResponse({ ok: true, duplicate: false });
+    } finally {
+      lock.releaseLock();
     }
-
-    sheet.appendRow([
-      new Date(data.checkedInAt),
-      safeCell(data.name),
-      safeCell(data.classLabel),
-      safeCell(data.classId)
-    ]);
-
-    return jsonResponse({ ok: true });
   } catch (error) {
     return jsonResponse({ ok: false, error: String(error) });
   }
@@ -59,3 +79,8 @@ function jsonResponse(value) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 ```
+
+The idempotency key prevents the same normalized name and class from being written more than
+once on the same Europe/London calendar day. The script lock makes that check atomic, including
+when two requests arrive together. Existing four-column sheets are supported: the script adds
+and hides the fifth column automatically on the next check-in.
