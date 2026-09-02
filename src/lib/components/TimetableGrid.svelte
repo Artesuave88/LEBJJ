@@ -12,7 +12,7 @@
 
   export let classes: TimetableClass[] = []
 
-  type ClassColour = 'Adults Gi' | 'Adults No-Gi' | 'Ladies' | 'Juniors' | 'Intermediate' | 'Fitness' | 'Open Mat'
+  type ClassColour = 'Adults Gi' | 'Adults No-Gi' | 'Ladies' | 'MMA' | 'Juniors' | 'Intermediate' | 'Fitness' | 'Open Mat'
 
   const classColours: Record<ClassColour, { surface: string; accent: string; badge: string }> = {
     'Adults Gi': {
@@ -29,6 +29,11 @@
       surface: 'border-purple-200 bg-purple-50',
       accent: 'border-l-purple-700',
       badge: 'border-purple-200 bg-purple-100 text-purple-800'
+    },
+    MMA: {
+      surface: 'border-amber-200 bg-amber-50',
+      accent: 'border-l-amber-600',
+      badge: 'border-amber-200 bg-amber-100 text-amber-900'
     },
     Juniors: {
       surface: 'border-sky-200 bg-sky-50',
@@ -53,6 +58,7 @@
   }
 
   function classColour(classItem: TimetableClass): ClassColour {
+    if (classItem.gi === 'MMA') return 'MMA'
     if (classItem.program === 'Adults') return classItem.gi === 'Gi' ? 'Adults Gi' : 'Adults No-Gi'
     if (classItem.program === 'Kids') return 'Juniors'
     return classItem.program

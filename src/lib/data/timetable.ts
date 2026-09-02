@@ -16,10 +16,10 @@ export type Program =
   | "Ladies"
   | "Open Mat"
   | "Fitness";
-export type GiType = "Gi" | "No-Gi" | "Mixed" | "Fitness";
+export type GiType = "Gi" | "No-Gi" | "MMA" | "Mixed" | "Fitness";
 
 export type AudienceFilter = "All" | "Adults" | "Ladies" | "Juniors" | "Intermediate";
-export type GiFilter = "All" | "Gi" | "No-Gi" | "Fitness";
+export type GiFilter = "All" | "Gi" | "No-Gi" | "MMA" | "Fitness";
 
 export type TimetableClass = {
   id: string;
@@ -118,13 +118,13 @@ export const timetableData: TimetableClass[] = [
     location: defaultLocation,
   },
   {
-    id: "wed-ladies-gi",
+    id: "wed-mma",
     day: "Wednesday",
     start: "18:00",
     end: "19:00",
-    title: "Ladies Gi BJJ (16+)",
-    program: "Ladies",
-    gi: "Gi",
+    title: "MMA",
+    program: "Adults",
+    gi: "MMA",
     location: defaultLocation,
   },
   {
@@ -283,6 +283,7 @@ export function matchesAudience(
 export function matchesGi(item: TimetableClass, giFilter: GiFilter): boolean {
   if (giFilter === "All") return true;
   if (giFilter === "Gi") return item.gi === "Gi" || item.gi === "Mixed";
+  if (giFilter === "MMA") return item.gi === "MMA";
   if (giFilter === "Fitness") return item.gi === "Fitness";
   return item.gi === "No-Gi" || item.gi === "Mixed";
 }

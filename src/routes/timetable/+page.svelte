@@ -16,7 +16,7 @@
   } from '$lib/data/timetable'
 
   const audienceOptions: AudienceFilter[] = ['All', 'Adults', 'Ladies', 'Juniors', 'Intermediate']
-  const giOptions: GiFilter[] = ['All', 'Gi', 'No-Gi', 'Fitness']
+  const giOptions: GiFilter[] = ['All', 'Gi', 'No-Gi', 'MMA', 'Fitness']
 
   const storageKey = 'filters:/timetable'
 
@@ -113,7 +113,7 @@
       <ul class="mt-3 list-disc space-y-2 pl-5">
         <li>Membership and pay-as-you-train options are available.</li>
         <li>Juniors: ages 5–10. Intermediate: ages 10–14.</li>
-        <li>All Levels Gi and No-Gi, Ladies, Open Mat and Fitness classes are for ages 14+.</li>
+        <li>All Levels Gi and No-Gi, Ladies, MMA, Open Mat and Fitness classes are for ages 14+.</li>
         <li>Children under 14 may attend Open Mat with a responsible adult who is training.</li>
         <li>Juniors and Intermediate classes are available on a membership basis only.</li>
       </ul>

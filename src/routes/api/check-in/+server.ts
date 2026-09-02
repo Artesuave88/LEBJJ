@@ -11,6 +11,15 @@ type CheckInPayload = {
   website?: string;
 };
 
+type CheckInResult = {
+  ok?: boolean;
+  duplicate?: boolean;
+  error?: string;
+};
+
+const CHECK_IN_SUCCESS_MESSAGE = "You are checked in. Enjoy the class!";
+const CHECK_IN_DUPLICATE_MESSAGE = "You are already checked in for this class today.";
+
 export const POST: RequestHandler = async ({ cookies, request, url }) => {
   const origin = request.headers.get("origin");
   if (origin && origin !== url.origin) {
@@ -28,7 +37,7 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
 
   // Quietly accept bot submissions without writing them to the sheet.
   if (payload?.website) {
-    return json({ ok: true, message: "You are checked in. Enjoy the class!" });
+    return json({ ok: true, message: CHECK_IN_SUCCESS_MESSAGE });
   }
 
   if (!name || !classId) {
@@ -61,35 +70,49 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
     );
   }
 
+  let duplicate = false;
+
   try {
     const checkedInAt = new Date();
     const normalizedName = name.toLocaleLowerCase("en-GB").replace(/\s+/g, " ");
-
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        secret: webhookSecret,
-        name,
-        classId,
-        classLabel: isVisitor ? "Visitor" : getClassLabelForSelect(selectedClass!),
-        checkedInAt: checkedInAt.toISOString(),
-        // One person can only check into a given class once per gym-local day.
-        idempotencyKey: `${getGymDateKey(checkedInAt)}:${classId}:${normalizedName}`,
-      }),
-      signal: AbortSignal.timeout(8_000),
+    const requestBody = JSON.stringify({
+      secret: webhookSecret,
+      name,
+      classId,
+      classLabel: isVisitor ? "Visitor" : getClassLabelForSelect(selectedClass!),
+      checkedInAt: checkedInAt.toISOString(),
+      // Reusing this key makes a retry safe if the sheet write succeeds but its response is lost.
+      idempotencyKey: `${getGymDateKey(checkedInAt)}:${classId}:${normalizedName}`,
     });
 
-    if (!response.ok) {
-      throw new Error(`Google Sheets webhook returned ${response.status}`);
+    let lastError: unknown;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: requestBody,
+          signal: AbortSignal.timeout(8_000),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Google Sheets webhook returned ${response.status}`);
+        }
+
+        const result = (await response.json().catch(() => null)) as CheckInResult | null;
+        if (!result?.ok) {
+          throw new Error(result?.error || "Google Sheets did not confirm the check-in");
+        }
+
+        duplicate = result.duplicate === true;
+        lastError = undefined;
+        break;
+      } catch (error) {
+        lastError = error;
+      }
     }
 
-    const result = (await response.json().catch(() => null)) as {
-      ok?: boolean;
-      duplicate?: boolean;
-      error?: string;
-    } | null;
-    if (!result?.ok) throw new Error(result?.error || "Google Sheets did not confirm the check-in");
+    if (lastError) throw lastError;
   } catch (error) {
     console.error("[check-in] Unable to save attendance", error);
     return json(
@@ -98,5 +121,9 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
     );
   }
 
-  return json({ ok: true, message: "You are checked in. Enjoy the class!" });
+  return json({
+    ok: true,
+    duplicate,
+    message: duplicate ? CHECK_IN_DUPLICATE_MESSAGE : CHECK_IN_SUCCESS_MESSAGE,
+  });
 };
