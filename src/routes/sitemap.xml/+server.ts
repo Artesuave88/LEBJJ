@@ -9,7 +9,6 @@ const staticPages = [
   "/gallery",
   "/contact",
   "/trial",
-  "/seminars/saul-rogers",
 ];
 
 export const prerender = true;
