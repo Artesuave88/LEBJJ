@@ -88,3 +88,14 @@ See `docs/google-sheets-check-in.md` for full setup instructions.
 4. Deploy.
 
 No custom `vercel.json` is required with `@sveltejs/adapter-vercel`.
+
+## Google review cards
+
+The homepage displays five manually selected Google review excerpts from
+`src/lib/data/google-reviews.ts`, using first names and links to the authors'
+Google Maps review profiles. The excerpts, 5.0 rating and 18-review total were
+checked on 9 September 2026. Update the data and displayed verification date
+manually when refreshing the reviews.
+
+No Google API requests, API key, or Google billing account are needed.
+The former `/api/google-reviews` endpoint has been removed.

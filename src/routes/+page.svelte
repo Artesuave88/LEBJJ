@@ -1,6 +1,6 @@
 <script lang="ts">
   import heroImage from '$lib/assets/hero-placeholder.svg'
-  import { testimonials } from '$lib/data/testimonials'
+  import GoogleReviews from '$lib/components/GoogleReviews.svelte'
   import Badge from '$lib/components/ui/Badge.svelte'
   import Button from '$lib/components/ui/Button.svelte'
   import Card from '$lib/components/ui/Card.svelte'
@@ -87,19 +87,11 @@
 <Container class="pb-16">
   <section class="space-y-6">
     <SectionHeading
-      eyebrow="Testimonials"
+      eyebrow="Google reviews"
       title="What students and parents say"
-      description="Real feedback from people training with us each week."
+
     />
 
-    <div class="flex snap-x gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
-      {#each testimonials as testimonial}
-        <Card class="min-w-[85%] snap-start border-zinc-200 p-5 sm:min-w-[60%] md:min-w-0">
-          <Badge variant="red">{testimonial.type}</Badge>
-          <p class="mt-3 text-sm text-zinc-700">“{testimonial.quote}”</p>
-          <p class="mt-4 text-sm font-semibold text-zinc-950">{testimonial.name}</p>
-        </Card>
-      {/each}
-    </div>
+    <GoogleReviews />
   </section>
 </Container>
