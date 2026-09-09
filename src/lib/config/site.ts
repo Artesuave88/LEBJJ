@@ -45,11 +45,11 @@ export const FACEBOOK_URL =
   "https://www.facebook.com/LongEatonBJJ/?locale=en_GB";
 
 export const OPENING_TIMES = [
-  "Monday: 5:00 PM - 8:30 PM",
+  "Monday: 9:30 AM - 11:00 AM and 5:00 PM - 8:30 PM",
   "Tuesday: 4:30 PM - 8:00 PM",
   "Wednesday: 5:00 PM - 8:30 PM",
   "Thursday: 4:30 PM - 8:00 PM",
-  "Friday: 6:15 PM - 7:15 PM",
+  "Friday: 6:00 PM - 7:00 PM",
   "Saturday: 9:00 AM - 12:30 PM",
   "Sunday: 9:00 AM - 11:00 AM (Open Mat)",
 ];
