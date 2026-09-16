@@ -1,5 +1,6 @@
 <script lang="ts">
-  import heroImage from '$lib/assets/hero-placeholder.svg'
+  import heroImage from '$lib/assets/home/hero-training-1920.webp'
+  import heroImageSmall from '$lib/assets/home/hero-training-960.webp'
   import GoogleReviews from '$lib/components/GoogleReviews.svelte'
   import Badge from '$lib/components/ui/Badge.svelte'
   import Button from '$lib/components/ui/Button.svelte'
@@ -31,14 +32,17 @@
 
 <Container class="py-8 sm:py-12">
   <section class="relative overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-950 shadow-xl">
-    <img
-      src={heroImage}
-      alt=""
-      class="absolute inset-0 h-full w-full object-cover opacity-70"
-      loading="eager"
-      sizes="100vw"
-      aria-hidden="true"
-    />
+    <picture class="absolute inset-0">
+      <source srcset={`${heroImageSmall} 960w, ${heroImage} 1920w`} sizes="(min-width: 1280px) 1152px, 100vw" type="image/webp" />
+      <img
+        src={heroImage}
+        alt=""
+        class="h-full w-full object-cover object-[60%_center] opacity-75 sm:object-center"
+        loading="eager"
+        fetchpriority="high"
+        aria-hidden="true"
+      />
+    </picture>
     <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-red-900/30"></div>
 
     <div class="relative z-10 px-6 py-14 sm:px-10 sm:py-20 lg:max-w-3xl lg:px-14">

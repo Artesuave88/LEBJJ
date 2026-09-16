@@ -8,6 +8,7 @@ import image6 from "$lib/assets/gallery-6.svg";
 export type GalleryItem = {
   id: string;
   src: string;
+  fullSrc?: string;
   alt: string;
   caption: string;
   objectPosition?: string;
@@ -53,7 +54,15 @@ const fallbackGalleryItems: GalleryItem[] = [
 ];
 
 const galleryImageModules = import.meta.glob(
-  "/src/lib/assets/gallery/*.{png,jpg,jpeg,webp,avif}",
+  "/src/lib/assets/gallery-optimized/thumb/*.webp",
+  {
+    eager: true,
+    import: "default",
+  },
+) as Record<string, string>;
+
+const galleryFullImageModules = import.meta.glob(
+  "/src/lib/assets/gallery-optimized/full/*.webp",
   {
     eager: true,
     import: "default",
@@ -130,6 +139,7 @@ const discoveredGalleryItems: GalleryItem[] = Object.entries(
     return {
       id: toSlug(fileStem),
       src,
+      fullSrc: galleryFullImageModules[`/src/lib/assets/gallery-optimized/full/${fileName}`] ?? src,
       caption: override.caption ?? fallbackCaption,
       alt: override.alt ?? `${fallbackCaption} at Long Eaton BJJ`,
       objectPosition: override.objectPosition,

@@ -81,7 +81,7 @@
 
     <div class="relative z-10 w-full max-w-5xl">
       <img
-        src={galleryItems[activeIndex].src}
+        src={galleryItems[activeIndex].fullSrc ?? galleryItems[activeIndex].src}
         alt={galleryItems[activeIndex].alt}
         class="max-h-[78vh] w-full rounded-xl border border-white/20 object-contain"
         style={galleryItems[activeIndex].objectPosition

@@ -1,11 +1,11 @@
-import mikeyDeanPhoto from "$lib/assets/coaches/mikey_dean.png";
-import sianDeanPhoto from "$lib/assets/coaches/sian_dean.png";
-import michaelStevensonPhoto from "$lib/assets/coaches/michael_stevenson.png";
-import markKiddPhoto from "$lib/assets/coaches/mark_kidd.png";
-import benSmedleyPhoto from "$lib/assets/coaches/ben_smedley.png";
-import jamesLewisPhoto from "$lib/assets/coaches/james_lewis.png";
-import danPhoto from "$lib/assets/coaches/dan.png";
-import emmaPhoto from "$lib/assets/coaches/emma.jpeg";
+import mikeyDeanPhoto from "$lib/assets/coaches-optimized/mikey_dean.webp";
+import sianDeanPhoto from "$lib/assets/coaches-optimized/sian_dean.webp";
+import michaelStevensonPhoto from "$lib/assets/coaches-optimized/michael_stevenson.webp";
+import markKiddPhoto from "$lib/assets/coaches-optimized/mark_kidd.webp";
+import benSmedleyPhoto from "$lib/assets/coaches-optimized/ben_smedley.webp";
+import jamesLewisPhoto from "$lib/assets/coaches-optimized/james_lewis.webp";
+import danPhoto from "$lib/assets/coaches-optimized/dan.webp";
+import emmaPhoto from "$lib/assets/coaches-optimized/emma.webp";
 
 export type instructor = {
   id: string;
