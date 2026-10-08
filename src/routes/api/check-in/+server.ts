@@ -20,6 +20,13 @@ type CheckInResult = {
 const CHECK_IN_SUCCESS_MESSAGE = "You are checked in. Enjoy the class!";
 const CHECK_IN_DUPLICATE_MESSAGE = "You are already checked in for this class today.";
 
+// Apps Script can take longer than eight seconds to start and acquire the sheet lock.
+const WEBHOOK_TIMEOUT_MS = 25_000;
+const WEBHOOK_ATTEMPTS = 2;
+
+// Allow both attempts to finish, with time left to return the result to the browser.
+export const config = { maxDuration: 60 };
+
 export const POST: RequestHandler = async ({ cookies, request, url }) => {
   const origin = request.headers.get("origin");
   if (origin && origin !== url.origin) {
@@ -86,13 +93,13 @@ export const POST: RequestHandler = async ({ cookies, request, url }) => {
     });
 
     let lastError: unknown;
-    for (let attempt = 0; attempt < 2; attempt += 1) {
+    for (let attempt = 0; attempt < WEBHOOK_ATTEMPTS; attempt += 1) {
       try {
         const response = await fetch(webhookUrl, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: requestBody,
-          signal: AbortSignal.timeout(8_000),
+          signal: AbortSignal.timeout(WEBHOOK_TIMEOUT_MS),
         });
 
         if (!response.ok) {

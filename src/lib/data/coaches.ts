@@ -34,7 +34,7 @@ export const instructors: instructor[] = [
   {
     id: "michael-stevenson",
     name: "Michael Stevenson",
-    beltRank: "2nd Degree Black Belt",
+    beltRank: "3rd Degree Black Belt",
     role: "Instructor",
     shortBio:
       "Supports adult and developing students with structured, practical instruction and active competition experience.",
